@@ -1,23 +1,24 @@
 package controller;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.util.List;
 
-
-
+import dao.ProdutosDAO;
+import models.Produtos;
 
 public class ControleProduto {
-    private File file = new File((System.getProperty("user.dir")) + "\\src\\controller\\arquivos\\Estoque.txt");
+    private ProdutosDAO produtoDAO;
 
-
-    public void addEstoque() {
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String linha = br.readLine();
-            linha = br.readLine();
-        } catch (IOException e) {
-            
-        }
+    public ControleProduto(){
+        this.produtoDAO = new ProdutosDAO();
     }
+
+    public void salvarProdutoController(Produtos produto){
+        this.produtoDAO.salvarProduto(produto);
+    }
+
+    public List<Produtos> listarProdutosController() {
+        return this.produtoDAO.listarProdutos();
+    }
+
+
 }

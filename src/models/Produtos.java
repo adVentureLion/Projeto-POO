@@ -1,10 +1,12 @@
 package models;
 
-public abstract class Produtos {
-    protected String nome;
-    protected int codigo;
-    protected double valor;
-    protected int qtd; 
+import java.io.Serializable;
+
+public class Produtos implements Serializable {
+    private String nome;
+    private int codigo;
+    private double valor;
+    private int qtd; 
 
     public Produtos(String nome, double valor){
         this.nome = nome;
@@ -45,15 +47,4 @@ public abstract class Produtos {
         return valor;
     }
 
-    public void adicionarNoEstoque(int cod, int qtd){
-
-    }
-
-    public void subtrairDoEstoque(int qtd){
-        setQtd(getQtd() - qtd);
-    }
-    
-    public void listarProdutos(){
-
-    }
 }

@@ -1,2 +1,0 @@
-Cod,Nome,Valor,Qtd
-001,Vela,20.0,2

@@ -1,2 +1,0 @@
-Cod;Nome;Preco;Quantidade
-01;Vela;10.00;30
