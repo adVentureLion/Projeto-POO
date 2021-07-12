@@ -2,21 +2,21 @@ package controller;
 
 import java.util.List;
 
-import dao.ProdutosDAO;
-import models.Produtos;
+import dao.ProdutoDAO;
+import models.Produto;
 
 public class ControleProduto {
-    private ProdutosDAO produtoDAO;
+    private ProdutoDAO produtoDAO;
 
     public ControleProduto(){
-        this.produtoDAO = new ProdutosDAO();
+        this.produtoDAO = new ProdutoDAO();
     }
 
-    public void salvarProdutoController(Produtos produto){
-        this.produtoDAO.salvarProduto(produto);
+    public void adicionarProdutoController(Produto produto){
+        this.produtoDAO.adicionarProduto(produto);
     }
 
-    public List<Produtos> listarProdutosController() {
+    public List<Produto> listarProdutosController() {
         return this.produtoDAO.listarProdutos();
     }
 

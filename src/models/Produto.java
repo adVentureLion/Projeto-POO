@@ -1,19 +1,18 @@
 package models;
 
-import java.io.Serializable;
 
-public class Produtos implements Serializable {
+public class Produto {
     private String nome;
     private int codigo;
     private double valor;
     private int qtd; 
 
-    public Produtos(String nome, double valor){
+    public Produto(String nome, double valor){
         this.nome = nome;
         this.valor = valor;
     }
 
-    public Produtos(int codigo, String nome, double valor, int qtd){
+    public Produto(int codigo, String nome, double valor, int qtd){
         this.codigo = codigo;
         this.nome = nome;
         this.valor = valor;
@@ -47,4 +46,17 @@ public class Produtos implements Serializable {
         return valor;
     }
 
+    public String toStringW() {
+        return this.codigo+";"+
+               this.nome+";"+
+               this.valor+";"+
+               this.qtd;
+    }
+    
+    public String toString() {
+        return this.codigo+";"+
+               this.nome+";"+
+               this.valor+";"+
+               this.qtd;
+    }
 }

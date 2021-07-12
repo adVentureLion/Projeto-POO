@@ -1,25 +1,34 @@
 package views;
 
-import java.io.IOException;
 import java.util.List;
 
+import controller.ControleCliente;
 import controller.ControleProduto;
-import models.Produtos;
+import models.Cliente;
+import models.Produto;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        //Produtos vela = new Produtos("Vela", 25.00);
-        ControleProduto controller = new ControleProduto();
+    public static void main(String[] args)  {
+        Produto bico = new Produto(0,"Bico",20.00,15);
+        Cliente Vera = new Cliente("Vera", "459.257.841-74");
 
-        //controller.salvarProdutoController(vela);
+        ControleProduto ctrlProduto = new ControleProduto();
+        ControleCliente ctrlCliente = new ControleCliente();
+
+        ctrlProduto.adicionarProdutoController(bico);
+        ctrlCliente.adicionarCliente(Vera);
         
-        List<Produtos> produtos = controller.listarProdutosController();
-        for (Produtos produto : produtos) {
-            System.out.println(produto.getNome());
+
+        
+        List<Produto> produtos = ctrlProduto.listarProdutosController();
+        for (Produto produto : produtos) {
+            System.out.println(produto);
         }
         
-            
-            
+        List<Cliente> clientes = ctrlCliente.listarClienteController();
+        for (Cliente cliente : clientes) {
+            System.out.println(cliente);
+        }
     
         
     }
