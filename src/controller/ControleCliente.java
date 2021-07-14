@@ -1,6 +1,6 @@
 package controller;
 
-import java.util.List;
+import java.util.Set;
 
 import dao.ClienteDAO;
 import models.Cliente;
@@ -12,11 +12,15 @@ public class ControleCliente {
         this.clienteDAO = new ClienteDAO();
     }
 
-    public void adicionarCliente(Cliente cliente) {
-        this.clienteDAO.adicionarCliente(cliente);
+    public boolean adicionarClienteController(Cliente cliente) {
+        return this.clienteDAO.adicionarCliente(cliente);
+    }
+    
+    public void excluirCliente(String nome){
+        this.clienteDAO.excluirCliente(nome);
     }
 
-    public List<Cliente> listarClienteController() {
+    public Set<Cliente> listarClienteController() {
         return this.clienteDAO.listarClientes();
     }
 }

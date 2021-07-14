@@ -1,5 +1,6 @@
 package models;
 
+import java.util.Objects;
 
 public class Produto {
     private String nome;
@@ -7,7 +8,8 @@ public class Produto {
     private double valor;
     private int qtd; 
 
-    public Produto(String nome, double valor){
+    public Produto(int codigo, String nome, double valor){
+        this.codigo = codigo;
         this.nome = nome;
         this.valor = valor;
     }
@@ -46,13 +48,22 @@ public class Produto {
         return valor;
     }
 
-    public String toStringW() {
-        return this.codigo+";"+
-               this.nome+";"+
-               this.valor+";"+
-               this.qtd;
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null) return false;
+        if(this == obj) return true;
+        if(this.getClass() != obj.getClass()) return false;
+
+        Produto produto = (Produto) obj; 
+        return Objects.equals(codigo, produto.codigo);
     }
-    
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.codigo);
+    }
+
+    @Override
     public String toString() {
         return this.codigo+";"+
                this.nome+";"+

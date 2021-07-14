@@ -1,6 +1,6 @@
 package controller;
 
-import java.util.List;
+import java.util.Set;
 
 import dao.ProdutoDAO;
 import models.Produto;
@@ -12,11 +12,15 @@ public class ControleProduto {
         this.produtoDAO = new ProdutoDAO();
     }
 
-    public void adicionarProdutoController(Produto produto){
-        this.produtoDAO.adicionarProduto(produto);
+    public boolean adicionarProdutoController(Produto produto){
+       return this.produtoDAO.adicionarProduto(produto);
     }
 
-    public List<Produto> listarProdutosController() {
+    public void excluirProduto(int codigo){
+        this.produtoDAO.excluirProduto(codigo);
+    }
+
+    public Set<Produto> listarProdutosController() {
         return this.produtoDAO.listarProdutos();
     }
 

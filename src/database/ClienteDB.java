@@ -2,11 +2,13 @@ package database;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.RandomAccessFile;
+import java.util.HashSet;
+import java.util.Set;
 
 import models.Cliente;
 
@@ -14,17 +16,27 @@ public class ClienteDB {
     private static final String caminho = "src" + System.getProperty("file.separator")+ "arquivos" +
                                            System.getProperty("file.separator") + "Clientes.txt";
 
-    public void adicionarCliente(Cliente cliente) {
+    protected void cadastrarCliente(Cliente cliente) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho, true))) {
-            bw.write(cliente.toStringW());
+            bw.write(cliente.toString() + System.getProperty("line.separator"));
             
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public List<Cliente> listarClientes() {
-        List<Cliente> clientes = new ArrayList<Cliente>();
+    protected void excluirDadosCliente(){
+        File temp = new File(caminho);
+
+        try (RandomAccessFile raf = new RandomAccessFile(temp, "rw")) {
+            raf.setLength(0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected Set<Cliente> listarClientes() {
+        Set<Cliente> clientes = new HashSet<>();
         
         try (BufferedReader br = new BufferedReader(new FileReader(caminho))) {
             String linha = br.readLine();

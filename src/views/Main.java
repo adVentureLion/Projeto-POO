@@ -1,35 +1,53 @@
 package views;
 
-import java.util.List;
+import java.util.Set;
 
 import controller.ControleCliente;
-import controller.ControleProduto;
 import models.Cliente;
-import models.Produto;
+
 
 public class Main {
     public static void main(String[] args)  {
-        Produto bico = new Produto(0,"Bico",20.00,15);
-        Cliente Vera = new Cliente("Vera", "459.257.841-74");
+        Cliente c1 = new Cliente("Vera", "447.252.956-42");
+        Cliente c2 = new Cliente("Carla", "427.252.956-42");
+        Cliente c3 = new Cliente("Lucio", "437.252.956-42");
+        Cliente c4 = new Cliente("Ribamar", "441.252.956-42");
+        Cliente c5 = new Cliente("Ribas", "411.252.956-42");
 
-        ControleProduto ctrlProduto = new ControleProduto();
-        ControleCliente ctrlCliente = new ControleCliente();
+        ControleCliente cc = new ControleCliente();
 
-        ctrlProduto.adicionarProdutoController(bico);
-        ctrlCliente.adicionarCliente(Vera);
-        
-
-        
-        List<Produto> produtos = ctrlProduto.listarProdutosController();
-        for (Produto produto : produtos) {
-            System.out.println(produto);
+        if(cc.adicionarClienteController(c1)){
+            System.out.println("Produto cadastrado com sucesso!");
         }
-        
-        List<Cliente> clientes = ctrlCliente.listarClienteController();
+        else
+            System.out.println("Código Invalido");
+       
+        if(cc.adicionarClienteController(c2)){
+            System.out.println("Produto cadastrado com sucesso!");
+        }
+        else
+            System.out.println("Código Invalido");
+        if(cc.adicionarClienteController(c3)){
+            System.out.println("Produto cadastrado com sucesso!");
+        }
+        else
+            System.out.println("Código Invalido");
+        if(cc.adicionarClienteController(c4)){
+            System.out.println("Produto cadastrado com sucesso!");
+        }
+        else
+            System.out.println("Código Invalido");
+
+        Set<Cliente> clientes = cc.listarClienteController();
         for (Cliente cliente : clientes) {
             System.out.println(cliente);
         }
-    
         
+        cc.excluirCliente("Lucio");
+        if(cc.adicionarClienteController(c5)){
+            System.out.println("Produto cadastrado com sucesso!");
+        }
+        else
+            System.out.println("Código Invalido");
     }
 }

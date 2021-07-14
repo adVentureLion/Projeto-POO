@@ -1,15 +1,15 @@
 package dao;
 
-import java.util.List;
+import java.util.Set;
 
 import models.Produto;
 
 public interface InterProdutoDAO {
-    public void adicionarProduto (Produto produto);
+    public boolean adicionarProduto (Produto produto);
     
-    public void excluirProduto(Produto produto);
+    public void excluirProduto(int codigo);
 
     public void autualizarPreço(Produto produto);
 
-    public List<Produto> listarProdutos();
+    public Set<Produto> listarProdutos();
 }

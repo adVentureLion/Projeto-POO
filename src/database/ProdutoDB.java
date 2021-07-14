@@ -2,11 +2,13 @@ package database;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.RandomAccessFile;
+import java.util.HashSet;
+import java.util.Set;
 
 import models.Produto;
 
@@ -14,21 +16,31 @@ public class ProdutoDB {
     private static final String caminho = "src" + System.getProperty("file.separator")+ "arquivos" +
                                            System.getProperty("file.separator") + "Produtos.txt";
 
-    public void adicionarProduto(Produto produto){
+    protected void cadastrarProduto(Produto produto){
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho, true))){            
-            bw.write(produto.toStringW());
-
+            bw.write(produto.toString() + System.getProperty("line.separator"));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public List<Produto> listarProdutos() {
-        List<Produto> produtos = new ArrayList<Produto>();
+    protected void excluirDadosProdutos() {
+        File temp = new File(caminho);
+        
+        if (temp.exists()) {
+            try (RandomAccessFile raf = new RandomAccessFile(temp, "rw")) {
+                raf.setLength(0);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    protected Set<Produto> listarProdutos() {
+        Set<Produto> produtos = new HashSet<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(caminho))) {
             String linha = br.readLine();
-            
             while(linha != null) {
                 String[] atributos = linha.split(";");
                 Integer cod = Integer.parseInt(atributos[0]);
@@ -47,4 +59,5 @@ public class ProdutoDB {
         
         return produtos;
     }
+
 }

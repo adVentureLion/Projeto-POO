@@ -1,18 +1,17 @@
 package models;
 
-
-
+import java.util.Objects;
 
 public class Cliente {
     private String nome;
-    private String dataNasci;
     private String cpf;
+    private String dataNasci;
     private String sexo; 
 
-    public Cliente(String nome, String dataNasci, String cpf, String sexo) {
+    public Cliente(String nome, String cpf, String dataNasci, String sexo) {
         this.nome = nome;
-        this.dataNasci = dataNasci;
         this.cpf = cpf;
+        this.dataNasci = dataNasci;
         this.sexo = sexo;
     }
 
@@ -49,18 +48,26 @@ public class Cliente {
         return sexo;
     }
 
-    public String toStringW() {
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null) return false;
+        if(this == obj) return true;
+        if(this.getClass() != obj.getClass()) return false;
+
+        Cliente cliente = (Cliente) obj; 
+        return Objects.equals(cpf, cliente.cpf);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.cpf);
+    }
+
+    @Override
+    public String toString() {
         return this.nome+";"+
                this.cpf+";"+     
                this.sexo+";"+     
                this.dataNasci;     
     }
-    
-    public String toString() {
-        return this.nome+" "+
-               this.cpf+" "+     
-               this.sexo+" "+     
-               this.dataNasci;     
-    }
-
 }
