@@ -1,13 +1,12 @@
 package database;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import models.Produto;
@@ -16,48 +15,42 @@ public class ProdutoDB {
     private static final String caminho = "src" + System.getProperty("file.separator")+ "arquivos" +
                                            System.getProperty("file.separator") + "Produtos.txt";
 
-    protected void cadastrarProduto(Produto produto){
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho, true))){            
-            bw.write(produto.toString() + System.getProperty("line.separator"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private static Set<Produto> produtos = new HashSet<>();
+
+    protected static void setProdutos(Set<Produto> produtos) {
+        ProdutoDB.produtos = produtos;
     }
-
-    protected void excluirDadosProdutos() {
-        File temp = new File(caminho);
-        
-        if (temp.exists()) {
-            try (RandomAccessFile raf = new RandomAccessFile(temp, "rw")) {
-                raf.setLength(0);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    
-    protected Set<Produto> listarProdutos() {
-        Set<Produto> produtos = new HashSet<>();
-
-        try (BufferedReader br = new BufferedReader(new FileReader(caminho))) {
-            String linha = br.readLine();
-            while(linha != null) {
-                String[] atributos = linha.split(";");
-                Integer cod = Integer.parseInt(atributos[0]);
-                String nome = atributos[1];
-                Double valor = Double.parseDouble(atributos[2]);
-                Integer qtd = Integer.parseInt(atributos[3]);
-
-                Produto prod = new Produto(cod, nome, valor, qtd);
-                produtos.add(prod);
-                linha = br.readLine();
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
+    protected static Set<Produto> getProdutos() {
         return produtos;
     }
 
+    public static void atualizarAqurivoProdutos(){
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(caminho))) {
+            oos.writeInt(ProdutoDB.produtos.size());
+            Iterator<Produto> pIterator = ProdutoDB.produtos.iterator();
+            while(pIterator.hasNext()) 
+                oos.writeObject(pIterator.next());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    protected static Set<Produto> listarProdutos() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(caminho))) {
+            if(caminho.isEmpty())
+                return ProdutoDB.produtos;
+            else {
+                int num = ois.readInt();
+                for(int i = 0; i < num; i++) {
+                    ProdutoDB.produtos.add((Produto) ois.readObject());
+                }  
+            }
+        } catch (IOException e) {
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }    
+        return ProdutoDB.produtos;
+    }
 }

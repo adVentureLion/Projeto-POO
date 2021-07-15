@@ -3,12 +3,13 @@ package controller;
 import java.util.Set;
 
 import dao.ClienteDAO;
+import database.ClienteDB;
 import models.Cliente;
 
 public class ControleCliente {
     private ClienteDAO clienteDAO;
 
-    public ControleCliente() {
+    public void iniciarClientes() {
         this.clienteDAO = new ClienteDAO();
     }
 
@@ -21,6 +22,11 @@ public class ControleCliente {
     }
 
     public Set<Cliente> listarClienteController() {
-        return this.clienteDAO.listarClientes();
+        return this.clienteDAO.exibirClientes();
+    }
+
+    public void atualizarClientes() {
+        ClienteDB.atualizarArquivoCliente();
     }
 }
+

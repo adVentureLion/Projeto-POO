@@ -9,7 +9,7 @@ public interface InterClienteDAO {
 
     public void excluirCliente(String nome);
 
-    public void atualizarDados(Cliente cliente);
+    //public boolean atualizarDadosCliente(Cliente cliente);
 
-    public Set<Cliente> listarClientes();
+    public Set<Cliente> exibirClientes();
 }

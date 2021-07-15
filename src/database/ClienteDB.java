@@ -1,13 +1,12 @@
 package database;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import models.Cliente;
@@ -16,48 +15,42 @@ public class ClienteDB {
     private static final String caminho = "src" + System.getProperty("file.separator")+ "arquivos" +
                                            System.getProperty("file.separator") + "Clientes.txt";
 
-    protected void cadastrarCliente(Cliente cliente) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho, true))) {
-            bw.write(cliente.toString() + System.getProperty("line.separator"));
-            
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private static Set<Cliente> clientes = new HashSet<>();
+
+    public static void setClientes(Set<Cliente> clientes) {
+        ClienteDB.clientes = clientes;
+    }
+    public static Set<Cliente> getClientes() {
+        return clientes;
     }
 
-    protected void excluirDadosCliente(){
-        File temp = new File(caminho);
-
-        try (RandomAccessFile raf = new RandomAccessFile(temp, "rw")) {
-            raf.setLength(0);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    protected Set<Cliente> listarClientes() {
-        Set<Cliente> clientes = new HashSet<>();
-        
-        try (BufferedReader br = new BufferedReader(new FileReader(caminho))) {
-            String linha = br.readLine();
-
-            while(linha != null) {
-                String[] atributos = linha.split(";");
-                String nome = atributos[0];
-                String dataNasci = atributos[1];
-                String cpf = atributos[2];
-                String sexo = atributos[3];
-
-                Cliente cliente = new Cliente(nome, dataNasci, cpf, sexo);
-                clientes.add(cliente);
-
-                linha = br.readLine();
+    public static void atualizarArquivoCliente() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(caminho))) {
+            oos.writeInt(ClienteDB.clientes.size());
+            Iterator<Cliente> cIterator = ClienteDB.clientes.iterator();
+            while(cIterator.hasNext()) {
+                oos.writeObject(cIterator.next());
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
-        
-        return clientes;
+    }
+
+    protected static Set<Cliente> listarClientes() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(caminho))) {
+            if(caminho.isEmpty())
+                return ClienteDB.clientes;
+            else {
+                int num = ois.readInt();
+                for(int i = 0; i < num; i++) {
+                    ClienteDB.clientes.add((Cliente) ois.readObject());
+                }  
+            }
+        } catch (IOException e) {
+           
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } 
+        return ClienteDB.clientes;
     }
 }

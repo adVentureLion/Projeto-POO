@@ -6,10 +6,12 @@ import models.Produto;
 
 public interface InterProdutoDAO {
     public boolean adicionarProduto (Produto produto);
+
+    public boolean adicionarNoEstoque (int codigo, int qtd);
     
     public void excluirProduto(int codigo);
 
-    public void autualizarPreço(Produto produto);
+    public boolean atualizarDadosProduto(Produto produto);
 
-    public Set<Produto> listarProdutos();
+    public Set<Produto> exibirProdutos();
 }

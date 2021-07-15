@@ -6,51 +6,48 @@ import database.ClienteDB;
 import models.Cliente;
 
 public class ClienteDAO extends ClienteDB implements InterClienteDAO {
+    private Set<Cliente> clientes;
+   
+    public ClienteDAO() {
+        this.clientes = super.listarClientes();
+    }
 
     @Override
     public boolean adicionarCliente(Cliente cliente) {
-        Set<Cliente> clientes = this.listarClientes();
-        Iterator<Cliente> cIterator = clientes.iterator();
+        Iterator<Cliente> cIterator = this.clientes.iterator();
         boolean adicionou = true;
 
-        if(clientes.isEmpty()) {
-            super.cadastrarCliente(cliente);
-            return adicionou;
+        while(cIterator.hasNext()) {
+            Cliente c = cIterator.next();
+            if(c.getCpf().equals(cliente.getCpf()))
+                adicionou = false;
+            else
+                adicionou = true;
         }
-        else {
-            while(cIterator.hasNext()) {
-                Cliente c = cIterator.next();
-                if(c.getCpf().equals(cliente.getCpf())) {
-                    adicionou = false;
-                }
-                else
-                    adicionou = true;
-            }
-            if(adicionou)
-                super.cadastrarCliente(cliente);
-        }
+        if(adicionou)
+            this.clientes.add(cliente);
+
         return adicionou;
     }
 
     @Override
     public void excluirCliente(String nome) {
-        Set<Cliente> clientes = super.listarClientes();
-        clientes.removeIf(cliente -> cliente.getNome().equals(nome));
-        Iterator<Cliente> cIterator = clientes.iterator();
-        super.excluirDadosCliente();
-        while(cIterator.hasNext()) {
-            Cliente c = cIterator.next();
-            this.adicionarCliente(c);
-        }
+        this.clientes.removeIf(cliente -> cliente.getNome() == nome);
     }
 
-    @Override
-    public void atualizarDados(Cliente cliente) {
+    // @Override
+    // public boolean atualizarDadosCliente(Cliente cliente) {
+    //     Iterator<Cliente> cIterator = this.clientes.iterator();
+    //     while(cIterator.hasNext()) {
+    //         Cliente c = cIterator.next();
+    //         if(c.getNome().equals(cliente.getNome())) {
+    //             c.ge
+    //         }
+    //     }
+    // }
 
-    }
-
     @Override
-    public Set<Cliente> listarClientes() {
-        return super.listarClientes();
+    public Set<Cliente> exibirClientes() {
+        return this.clientes;
     }
 }
