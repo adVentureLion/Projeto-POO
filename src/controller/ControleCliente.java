@@ -17,16 +17,21 @@ public class ControleCliente {
         return this.clienteDAO.adicionarCliente(cliente);
     }
     
-    public void excluirCliente(String nome){
-        this.clienteDAO.excluirCliente(nome);
+    public boolean excluirCliente(String nome){
+        return this.clienteDAO.excluirCliente(nome);
     }
 
     public Set<Cliente> listarClienteController() {
         return this.clienteDAO.exibirClientes();
     }
 
+    public Set<Cliente> listarClienteExcluidosController() {
+        return this.clienteDAO.exibirClientesExcluidos();
+    }
+
     public void atualizarClientes() {
         ClienteDB.atualizarArquivoCliente();
+        ClienteDB.atualizarArquivoClienteExcluidos();
     }
 }
 

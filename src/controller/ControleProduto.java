@@ -21,8 +21,8 @@ public class ControleProduto {
         return this.produtoDAO.adicionarNoEstoque(codigo, qtd);
     }
     
-    public void excluirProduto(int codigo){
-        this.produtoDAO.excluirProduto(codigo);
+    public boolean excluirProduto(int codigo){
+        return this.produtoDAO.excluirProduto(codigo);
     }
 
     public void atualizarDadosProduto(Produto produto) {
@@ -32,10 +32,19 @@ public class ControleProduto {
     public Set<Produto> listarProdutosController() {
         return this.produtoDAO.exibirProdutos();
     }
+
+    public Set<Produto> listarProdutosDisponiveisController() {
+        return this.produtoDAO.exibirProdutosDisponiveis();
+    }
+    
+    public Set<Produto> listarProdutosExcluidosController() {
+        return this.produtoDAO.exibirProdutosExcluidos();
+    }
     
     public void atualizarProdutos() {
         ProdutoDB.atualizarAqurivoProdutos();
+        ProdutoDB.atualizarAqurivoProdutosExcluidos();   
     }
-
+    
 
 }

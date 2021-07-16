@@ -9,9 +9,13 @@ public interface InterProdutoDAO {
 
     public boolean adicionarNoEstoque (int codigo, int qtd);
     
-    public void excluirProduto(int codigo);
+    public boolean excluirProduto(int codigo);
 
     public boolean atualizarDadosProduto(Produto produto);
 
     public Set<Produto> exibirProdutos();
+    
+    public Set<Produto> exibirProdutosDisponiveis();
+    
+    public Set<Produto> exibirProdutosExcluidos();
 }
