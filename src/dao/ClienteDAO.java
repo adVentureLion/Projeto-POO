@@ -56,4 +56,9 @@ public class ClienteDAO extends ClienteDB implements InterClienteDAO {
     public Set<Cliente> exibirClientesExcluidos() {
         return this.clientesExcluidos;
     }
+
+    public void atualizarClientes() {
+        super.atualizarArquivoCliente(clientes);
+        super.atualizarArquivoClienteExcluidos(clientesExcluidos);
+    }
 }

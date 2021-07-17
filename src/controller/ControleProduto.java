@@ -3,7 +3,6 @@ package controller;
 import java.util.Set;
 
 import dao.ProdutoDAO;
-import database.ProdutoDB;
 import models.Produto;
 
 public class ControleProduto {
@@ -41,9 +40,8 @@ public class ControleProduto {
         return this.produtoDAO.exibirProdutosExcluidos();
     }
     
-    public void atualizarProdutos() {
-        ProdutoDB.atualizarAqurivoProdutos();
-        ProdutoDB.atualizarAqurivoProdutosExcluidos();   
+    public void atualizarProdutosController() {
+        this.produtoDAO.atualizarProdutos();  
     }
     
 

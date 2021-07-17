@@ -19,27 +19,11 @@ public class ClienteDB {
                                                 System.getProperty("file.separator") + "ClientesExcluidos.txt";                                    
     
     
-    private static Set<Cliente> clientes = new HashSet<>();
-    private static Set<Cliente> clientesExcluidos = new HashSet<>();
-
-    public static void setClientes(Set<Cliente> clientes) {
-        ClienteDB.clientes = clientes;
-    }
-    public static Set<Cliente> getClientes() {
-        return clientes;
-    }
-    
-    public static void setClientesExcluidos(Set<Cliente> clientesExcluidos) {
-        ClienteDB.clientesExcluidos = clientesExcluidos;
-    }
-    public static Set<Cliente> getClientesExcluidos() {
-        return clientesExcluidos;
-    }
-
-    public static void atualizarArquivoCliente() {
+   
+    public static void atualizarArquivoCliente(Set<Cliente> clientes) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(caminho))) {
-            oos.writeInt(ClienteDB.clientes.size());
-            Iterator<Cliente> cIterator = ClienteDB.clientes.iterator();
+            oos.writeInt(clientes.size());
+            Iterator<Cliente> cIterator = clientes.iterator();
             while(cIterator.hasNext()) {
                 oos.writeObject(cIterator.next());
             }
@@ -48,10 +32,10 @@ public class ClienteDB {
         }
     }
     
-    public static void atualizarArquivoClienteExcluidos() {
+    public static void atualizarArquivoClienteExcluidos(Set<Cliente> clientesExcluidos) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(cClientesExcluidos))) {
-            oos.writeInt(ClienteDB.clientesExcluidos.size());
-            Iterator<Cliente> cIterator = ClienteDB.clientesExcluidos.iterator();
+            oos.writeInt(clientesExcluidos.size());
+            Iterator<Cliente> cIterator = clientesExcluidos.iterator();
             while(cIterator.hasNext()) {
                 oos.writeObject(cIterator.next());
             }
@@ -61,13 +45,14 @@ public class ClienteDB {
     }
 
     protected static Set<Cliente> listarClientes() {
+        Set<Cliente> clientes = new HashSet<>();
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(caminho))) {
             if(caminho.isEmpty())
-                return ClienteDB.clientes;
+                return clientes;
             else {
                 int num = ois.readInt();
                 for(int i = 0; i < num; i++) {
-                    ClienteDB.clientes.add((Cliente) ois.readObject());
+                    clientes.add((Cliente) ois.readObject());
                 }  
             }
         } catch (IOException e) {
@@ -75,17 +60,18 @@ public class ClienteDB {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } 
-        return ClienteDB.clientes;
+        return clientes;
     }
 
     protected static Set<Cliente> listarClientesExcluidos() {
+        Set<Cliente> clientesExcluidos = new HashSet<>();
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(cClientesExcluidos))) {
             if(cClientesExcluidos.isEmpty())
-                return ClienteDB.clientesExcluidos;
+                return clientesExcluidos;
             else {
                 int num = ois.readInt();
                 for(int i = 0; i < num; i++) {
-                    ClienteDB.clientesExcluidos.add((Cliente) ois.readObject());
+                    clientesExcluidos.add((Cliente) ois.readObject());
                 }
             }
         } catch (IOException e) {
@@ -93,6 +79,6 @@ public class ClienteDB {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return ClienteDB.clientesExcluidos;
+        return clientesExcluidos;
     }
 }

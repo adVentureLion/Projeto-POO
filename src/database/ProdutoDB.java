@@ -18,29 +18,29 @@ public class ProdutoDB {
     private static final String cProdExcluido = "src" + System.getProperty("file.separator")+ "arquivos" +
                                            System.getProperty("file.separator") + "ProdutosExcluidos.txt";
 
-    private static Set<Produto> produtos = new HashSet<>();
-    private static Set<Produto> produtosExcluidos = new HashSet<>();
+    // private static Set<Produto> produtos = new HashSet<>();
+    // private static Set<Produto> produtosExcluidos = new HashSet<>();
 
     
-    public static void setProdutosExcluidos(Set<Produto> produtosExcluidos) {
-        ProdutoDB.produtosExcluidos = produtosExcluidos;
-    }
-    protected static Set<Produto> getProdutos() {
-        return produtos;
-    }
+    // public static void setProdutosExcluidos(Set<Produto> produtosExcluidos) {
+    //     ProdutoDB.produtosExcluidos = produtosExcluidos;
+    // }
+    // protected static Set<Produto> getProdutos() {
+    //     return produtos;
+    // }
 
-    protected static void setProdutos(Set<Produto> produtos) {
-        ProdutoDB.produtos = produtos;
-    }
-    public static Set<Produto> getProdutosExcluidos() {
-        return produtosExcluidos;
-    }
+    // protected static void setProdutos(Set<Produto> produtos) {
+    //     ProdutoDB.produtos = produtos;
+    // }
+    // public static Set<Produto> getProdutosExcluidos() {
+    //     return produtosExcluidos;
+    // }
     
 
-    public static void atualizarAqurivoProdutos(){
+    public static void atualizarAqurivoProdutos(Set<Produto> produtos){
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(caminho))) {
-            oos.writeInt(ProdutoDB.produtos.size());
-            Iterator<Produto> pIterator = ProdutoDB.produtos.iterator();
+            oos.writeInt(produtos.size());
+            Iterator<Produto> pIterator = produtos.iterator();
             while(pIterator.hasNext()) 
                 oos.writeObject(pIterator.next());
 
@@ -49,10 +49,10 @@ public class ProdutoDB {
         }
     }
     
-    public static void atualizarAqurivoProdutosExcluidos(){
+    public static void atualizarAqurivoProdutosExcluidos(Set<Produto> produtosExcluidos){
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(cProdExcluido))) {
-            oos.writeInt(ProdutoDB.produtosExcluidos.size());
-            Iterator<Produto> pIterator = ProdutoDB.produtosExcluidos.iterator();
+            oos.writeInt(produtosExcluidos.size());
+            Iterator<Produto> pIterator = produtosExcluidos.iterator();
             while(pIterator.hasNext()) 
                 oos.writeObject(pIterator.next());
 
@@ -62,13 +62,14 @@ public class ProdutoDB {
     }
 
     protected static Set<Produto> listarProdutos() {
+        Set<Produto> produtos = new HashSet<>();
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(caminho))) {
             if(caminho.isEmpty())
-                return ProdutoDB.produtos;
+                return produtos;
             else {
                 int num = ois.readInt();
                 for(int i = 0; i < num; i++) {
-                    ProdutoDB.produtos.add((Produto) ois.readObject());
+                    produtos.add((Produto) ois.readObject());
                 }  
             }
         } catch (IOException e) {
@@ -76,17 +77,18 @@ public class ProdutoDB {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }    
-        return ProdutoDB.produtos;
+        return produtos;
     }
 
     protected static Set<Produto> listarProdutosExcluidos() {
+        Set<Produto> produtosExcluidos = new HashSet<>();
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(cProdExcluido))) {
             if(cProdExcluido.isEmpty())
-                return ProdutoDB.produtosExcluidos;
+                return produtosExcluidos;
             else {
                 int num = ois.readInt();
                 for(int i = 0; i < num; i++) {
-                    ProdutoDB.produtosExcluidos.add((Produto) ois.readObject());
+                    produtosExcluidos.add((Produto) ois.readObject());
                 } 
             }
         } catch (IOException e) {
@@ -94,6 +96,6 @@ public class ProdutoDB {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }    
-        return ProdutoDB.produtosExcluidos;
+        return produtosExcluidos;
     }
 }

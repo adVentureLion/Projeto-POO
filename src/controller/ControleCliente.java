@@ -3,7 +3,6 @@ package controller;
 import java.util.Set;
 
 import dao.ClienteDAO;
-import database.ClienteDB;
 import models.Cliente;
 
 public class ControleCliente {
@@ -29,9 +28,8 @@ public class ControleCliente {
         return this.clienteDAO.exibirClientesExcluidos();
     }
 
-    public void atualizarClientes() {
-        ClienteDB.atualizarArquivoCliente();
-        ClienteDB.atualizarArquivoClienteExcluidos();
+    public void atualizarClientesController() {
+        this.clienteDAO.atualizarClientes();
     }
 }
 

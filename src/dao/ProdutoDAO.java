@@ -97,6 +97,11 @@ public class ProdutoDAO extends ProdutoDB implements InterProdutoDAO{
     public Set<Produto> exibirProdutosExcluidos() { 
         return this.produtosExcluidos;
     }
+
+    public void atualizarProdutos() {
+        super.atualizarAqurivoProdutos(produtos);
+        super.atualizarAqurivoProdutosExcluidos(produtosExcluidos);   
+    }
    
     
 }

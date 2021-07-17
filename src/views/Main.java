@@ -12,18 +12,18 @@ public class Main {
         // ControleProduto cp = new ControleProduto();
         // cp.iniciarProdutos();
 
-        // Produto p1 = new Produto(4, "T", 15.0, 0);
-        // Produto p2 = new Produto(5, "c", 15.0, 3);
-        // Produto p3 = new Produto(6, "f", 15.0, 3);
+        // Produto p1 = new Produto(1, "B", 15.0, 0);
+        // Produto p2 = new Produto(2, "A", 15.0, 3);
+        // Produto p3 = new Produto(3, "D", 15.0, 3);
 
 
         // cp.adicionarProdutoController(p1);
         // cp.adicionarProdutoController(p2);
         // cp.adicionarProdutoController(p3);
 
-        // cp.adicionarNoEstoque(2, 10);
-        // Produto p1 = new Produto(2, "a", 10, 5);
-        // cp.atualizarDadosProduto(p1);
+        // // cp.adicionarNoEstoque(2, 10);
+        // // Produto p1 = new Produto(2, "a", 10, 5);
+        // // cp.atualizarDadosProduto(p1);
 
         // Set<Produto> produtos = cp.listarProdutosController();
         // for (Produto produto : produtos) {
@@ -46,24 +46,25 @@ public class Main {
         // for (Produto produto : produtosExcluidos) {
         //     System.out.println(produto);
         // }
+        // System.out.println();
 
         // Set<Produto> produtosD = cp.listarProdutosDisponiveisController();
         // for (Produto produto : produtosD) {
         //     System.out.println(produto);
         // }
 
-        // cp.atualizarProdutos();
+        // cp.atualizarProdutosController();
 
         ControleCliente cc = new ControleCliente();
         cc.iniciarClientes();
 
-        Cliente c1 = new Cliente("Vera", "144.752.864-14", "25/10/1996", "F");      
-        // Cliente c2 = new Cliente("Clauido", "124.752.864-14", "25/10/1996", "F");      
-        Cliente c3 = new Cliente("Turan", "134.752.864-14", "25/10/1996", "F");      
-        Cliente c4 = new Cliente("FF", "154.752.864-14", "25/10/1996", "F");    
+        Cliente c1 = new Cliente("Joao", "122.752.864-14", "25/10/1996", "F");      
+        Cliente c2 = new Cliente("Joana", "111.752.864-14", "25/10/1996", "F");      
+        Cliente c3 = new Cliente("Taiga", "156.752.864-14", "25/10/1996", "F");      
+        Cliente c4 = new Cliente("Beto", "188.752.864-14", "25/10/1996", "F");    
 
         cc.adicionarClienteController(c1);
-        // cc.adicionarClienteController(c2);
+        cc.adicionarClienteController(c2);
         cc.adicionarClienteController(c3);
         cc.adicionarClienteController(c4);
 
@@ -72,8 +73,8 @@ public class Main {
             System.out.println(cliente);
         }
 
-        cc.excluirCliente("FF");
-        cc.excluirCliente("Vera");
+        cc.excluirCliente("Beto");
+        cc.excluirCliente("Clauido");
         System.out.println();
 
         Set<Cliente> clientes2 = cc.listarClienteController();
@@ -89,6 +90,6 @@ public class Main {
         }
 
 
-        cc.atualizarClientes();
+        cc.atualizarClientesController();
     }
 }
