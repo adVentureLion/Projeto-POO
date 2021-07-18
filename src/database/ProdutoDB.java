@@ -18,24 +18,6 @@ public class ProdutoDB {
     private static final String cProdExcluido = "src" + System.getProperty("file.separator")+ "arquivos" +
                                            System.getProperty("file.separator") + "ProdutosExcluidos.txt";
 
-    // private static Set<Produto> produtos = new HashSet<>();
-    // private static Set<Produto> produtosExcluidos = new HashSet<>();
-
-    
-    // public static void setProdutosExcluidos(Set<Produto> produtosExcluidos) {
-    //     ProdutoDB.produtosExcluidos = produtosExcluidos;
-    // }
-    // protected static Set<Produto> getProdutos() {
-    //     return produtos;
-    // }
-
-    // protected static void setProdutos(Set<Produto> produtos) {
-    //     ProdutoDB.produtos = produtos;
-    // }
-    // public static Set<Produto> getProdutosExcluidos() {
-    //     return produtosExcluidos;
-    // }
-    
 
     public static void atualizarAqurivoProdutos(Set<Produto> produtos){
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(caminho))) {
@@ -49,7 +31,7 @@ public class ProdutoDB {
         }
     }
     
-    public static void atualizarAqurivoProdutosExcluidos(Set<Produto> produtosExcluidos){
+    protected static void atualizarAqurivoProdutosExcluidos(Set<Produto> produtosExcluidos){
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(cProdExcluido))) {
             oos.writeInt(produtosExcluidos.size());
             Iterator<Produto> pIterator = produtosExcluidos.iterator();

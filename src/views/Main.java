@@ -8,16 +8,20 @@ import controller.ControllerCliente;
 import controller.ControllerProduto;
 import controller.ControllerVendaCliente;
 import controller.ControllerVendaProduto;
+import controller.ControllerVendas;
 import models.Cliente;
 import models.Produto;
-import models.Venda;
+import models.VendaCliente;
 import models.VendaProduto;
+import models.Vendas;
 
 public class Main {
     public static void main(String[] args)  {
         ControllerProduto cp = new ControllerProduto();
         ControllerVendaProduto cvp = new ControllerVendaProduto();
         ControllerVendaCliente cvc = new ControllerVendaCliente();
+        ControllerVendas cv = new ControllerVendas();
+        cv.iniciarVendas();
         cp.iniciarProdutos();
 
         Produto p1 = new Produto(1, "B", 15.0, 0);
@@ -113,17 +117,25 @@ public class Main {
         if((cvp.venderProdutoController(cp, vp)))
             vendasDeProdutos.add(vp);
         
-        Venda vc = new Venda(vendasDeProdutos, c1);
+        VendaCliente vc = new VendaCliente(vendasDeProdutos, c1);
         cvc.calcularCompraCliente(vc);
         System.out.println(vc); 
-                
+        
+        List<VendaCliente> vendasCliente = new ArrayList<>();
+
+        vendasCliente.add(vc);
+
+        cv.atualizarVendasController(vendasCliente);
         cc.atualizarClientesController();
         cp.atualizarProdutosController();
-        
 
         Set<Produto> produtos = cp.listarProdutosController();
         for (Produto produto : produtos) {
             System.out.println(produto);
+        }
+        List<Vendas> vendas = cv.listarVendasController();
+        for (Vendas vendas2 : vendas) {
+            System.out.println(vendas2.getNomeCliente());
         }
 
     }

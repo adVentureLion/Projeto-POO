@@ -135,6 +135,7 @@ public class CadastrarCliente extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if(tfNome.getText().equals("") || ftfCPF.getText().equals("   .   .   -  ") || ftfData.getText().equals("  /  /     ") || (rbF.isSelected() == false) && (rbM.isSelected() == false)) {
+						
 						throw new NullPointerException();
 					}
 						else {
@@ -149,13 +150,13 @@ public class CadastrarCliente extends JFrame {
 							}
 							
 							Cliente cliente = new Cliente(nome, cpf, data, sexo);
-							if(controle.adicionarClienteController(cliente)) {
-								JOptionPane.showMessageDialog(null, "CADASTRADO COM SECESSO", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
-							}
+							controle.adicionarClienteController(cliente);
 							
-							
+							JOptionPane.showMessageDialog(null, "CADASTRADO COM SECESSO", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
 							
 						}
+				}catch(NullPointerException w) {
+					JOptionPane.showMessageDialog(null, "CAMPO(S) OBRIGATÓRIOS NÃO PREENCHIDOS", "FALHA", JOptionPane.INFORMATION_MESSAGE);
 				} catch(Exception q) {
 					JOptionPane.showMessageDialog(null, "ALGO DEU ERRADO", "FALHA", JOptionPane.INFORMATION_MESSAGE);
 				}

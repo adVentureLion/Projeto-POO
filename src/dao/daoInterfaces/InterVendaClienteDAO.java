@@ -1,8 +1,8 @@
 package dao.daoInterfaces;
 
-import models.Venda;
+import models.VendaCliente;
 
 public interface InterVendaClienteDAO {
     
-    public void calcularCompraCliente(Venda vendaCli);
+    public void calcularCompraCliente(VendaCliente vendaCli);
 }
