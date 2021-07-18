@@ -61,10 +61,6 @@ public class ListarProdutosExcluidos extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 384, 664, -325);
-		contentPane.add(scrollPane);
-		
 		JLabel lblNewLabel = new JLabel("PRODUTOS EXCLU\u00CDDOS");
 		lblNewLabel.setBounds(10, 11, 664, 28);
 		lblNewLabel.setFont(new Font("Century", Font.PLAIN, 16));
@@ -72,24 +68,20 @@ public class ListarProdutosExcluidos extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		tabela = new JTable();
-		tabela.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"NOME", "VALOR", "QUANTIDADE EXCLU\u00CDDA"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		tabela.getColumnModel().getColumn(2).setPreferredWidth(133);
-		tabela.setFont(new Font("Century", Font.PLAIN, 12));
-		tabela.setBounds(10, 383, 664, -312);
-		scrollPane.setViewportView(tabela);
+		tabela.setBounds(10, 69, 664, 315);
+		contentPane.add(tabela);
+		
+		JScrollPane spTab = new JScrollPane(tabela);
+		spTab.setBounds(10, 69, 664, 315);
+		contentPane.add(spTab);
+		DefaultTableModel auxProduto = (DefaultTableModel) tabela.getModel();
+		auxProduto.addColumn("NOME");
+		auxProduto.addColumn("CÓDIGO");
+		auxProduto.addColumn("VALOR");
+		
+		for(Produto listagemProd: produtos) {
+			auxProduto.addRow(new String [] {listagemProd.getNome(), Integer.toString(listagemProd.getCodigo()) , Double.toString(listagemProd.getValor())});;
+		}
 		
 		
 		
@@ -98,5 +90,4 @@ public class ListarProdutosExcluidos extends JFrame {
 		
 		
 	}
-
 	}

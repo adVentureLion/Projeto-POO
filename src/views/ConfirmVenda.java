@@ -55,10 +55,11 @@ public class ConfirmVenda extends JFrame {
 	 * Create the frame.
 	 */
 	public ConfirmVenda() {
+		setTitle("VALIDA\u00C7\u00C3O DE CPF");
 	
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 344, 280);
+		setBounds(100, 100, 344, 200);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -95,22 +96,10 @@ public class ConfirmVenda extends JFrame {
 		tfCPF.setBounds(168, 19, 150, 40);
 		contentPane.add(tfCPF);
 		
-		
-		
-		JLabel lblNewLabel_1 = new JLabel("VALOR");
-		lblNewLabel_1.setFont(new Font("Century", Font.PLAIN, 16));
-		lblNewLabel_1.setBounds(10, 98, 65, 40);
-		contentPane.add(lblNewLabel_1);
-		
 		JButton btnNewButton = new JButton("CONFIRMAR");
 		btnNewButton.setFont(new Font("Century", Font.PLAIN, 16));
-		btnNewButton.setBounds(168, 190, 150, 40);
+		btnNewButton.setBounds(168, 105, 150, 40);
 		contentPane.add(btnNewButton);
-		
-		JLabel lblvalor = new JLabel("");
-		lblvalor.setFont(new Font("Century", Font.PLAIN, 16));
-		lblvalor.setBounds(168, 98, 150, 40);
-		contentPane.add(lblvalor);
 		
 	}
 }

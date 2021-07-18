@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
@@ -19,6 +20,8 @@ import controller.ControllerCliente;
 import models.Cliente;
 import models.Produto;
 import controller.ControllerProduto;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 public class ListarDados extends JFrame {
 	
 	ControllerCliente controle = new ControllerCliente();
@@ -50,13 +53,20 @@ public class ListarDados extends JFrame {
 	 * Create the frame.
 	 */
 	public ListarDados() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				controle.atualizarClientesController();
+				controleProd.atualizarProdutosController();
+			}
+		});
 		
 		controle.iniciarClientes();
 		clientes = controle.listarClienteController();
 		controleProd.iniciarProdutos();
 		produtos = controleProd.listarProdutosController();
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 700, 434);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -114,11 +124,37 @@ public class ListarDados extends JFrame {
 		DefaultTableModel auxProduto = (DefaultTableModel) tabelaProduto.getModel();
 		
 		JButton excluirCliente = new JButton("EXCLUIR");
+		excluirCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+				String nome = tabelaCliente.getValueAt(tabelaCliente.getSelectedRow(), 0).toString();
+				controle.excluirCliente(nome);
+				auxCliente.removeRow(tabelaCliente.getSelectedRow());
+				JOptionPane.showMessageDialog(null, "CLIENTE EXCLUÍDO COM SECESSO", "SUCESSO", 2);
+				}catch(Exception q) {
+					JOptionPane.showMessageDialog(null, "ALGO DEU ERRADO. TENTE NOVAMENTE", "ERRO", 2);
+				}
+				
+			}
+		});
 		excluirCliente.setFont(new Font("Century", Font.PLAIN, 12));
 		excluirCliente.setBounds(548, 363, 121, 23);
 		contentPane.add(excluirCliente);
 		
 		JButton excluirProduto = new JButton("EXCLUIR");
+		excluirProduto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					String str = tabelaProduto.getValueAt(tabelaProduto.getSelectedRow(), 1).toString();
+					int cod = Integer.parseInt(str);
+					controleProd.excluirProduto(cod);
+					auxProduto.removeRow(tabelaProduto.getSelectedRow());
+					JOptionPane.showMessageDialog(null, "PRODUTO EXCLUÍDO COM SECESSO", "SUCESSO", 2);
+					}catch(Exception q) {
+						JOptionPane.showMessageDialog(null, "ALGO DEU ERRADO. TENTE NOVAMENTE", "ERRO", 2);
+					}
+			}
+		});
 		excluirProduto.setFont(new Font("Century", Font.PLAIN, 12));
 		excluirProduto.setBounds(548, 363, 121, 23);
 		contentPane.add(excluirProduto);
