@@ -134,7 +134,7 @@ public class CadastrarCliente extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if(tfNome.getText().equals("") || ftfCPF.getText().equals("   .   .   -  ") || ftfData.getText().equals("  /  /    ") || (!rbF.isSelected() && !rbM.isSelected())) {
+					if(tfNome.getText().equals("") || ftfCPF.getText().equals("   .   .   -  ") || ftfData.getText().equals("  /  /     ") || (rbF.isSelected() || rbM.isSelected())) {
 						throw new NullPointerException();
 					}
 						else {
@@ -155,7 +155,11 @@ public class CadastrarCliente extends JFrame {
 							
 						}
 				}catch(NullPointerException w) {
+<<<<<<< HEAD
 					JOptionPane.showMessageDialog(null, "CAMPO(S) OBRIGAT�RIOS N�O PREENCHIDOS", "FALHA", JOptionPane.INFORMATION_MESSAGE);
+=======
+					
+>>>>>>> 9cc288b71a68877d9d858ccaba4098198a0b572d
 				} catch(Exception q) {
 					JOptionPane.showMessageDialog(null, "ALGO DEU ERRADO", "FALHA", JOptionPane.INFORMATION_MESSAGE);
 				}

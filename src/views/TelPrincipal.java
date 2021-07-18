@@ -35,10 +35,23 @@ import java.awt.event.WindowFocusListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowStateListener;
+import controller.ControllerVendaProduto;
+import models.VendaProduto;
+import models.Produto;
 
 public class TelPrincipal extends JFrame {
 	
 	ControllerProduto Prod = new ControllerProduto();
+	
+	ControllerVendaProduto venda = new ControllerVendaProduto();
+	
+	CadastrarCliente cadastrar = new CadastrarCliente();
+	
+	ListarDados listar = new ListarDados();
+	
+	ListarProdutosExcluidos listarEx = new ListarProdutosExcluidos();
+	
+	
 	
 	Set<Produto> produtoss;
 	
@@ -116,6 +129,11 @@ public class TelPrincipal extends JFrame {
 		mnNewMenu_1.add(CadProduto);
 		
 		JMenuItem ListarProdEx = new JMenuItem("Listar Produtos Exclu\u00EDdos");
+		ListarProdEx.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				listarEx.setVisible(true);
+			}
+		});
 		ListarProdEx.setFont(new Font("Century", Font.PLAIN, 12));
 		mnNewMenu_1.add(ListarProdEx);
 		
@@ -124,6 +142,11 @@ public class TelPrincipal extends JFrame {
 		mnNewMenu.add(mnNewMenu_2);
 		
 		JMenuItem CadCliente = new JMenuItem("Cadastrar Cliente");
+		CadCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cadastrar.setVisible(true);
+			}
+		});
 		CadCliente.setFont(new Font("Century", Font.PLAIN, 12));
 		mnNewMenu_2.add(CadCliente);
 		
@@ -132,6 +155,11 @@ public class TelPrincipal extends JFrame {
 		mnNewMenu_2.add(ListarCadExc);
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("Listar Dados");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				listar.setVisible(true);
+			}
+		});
 		mntmNewMenuItem.setFont(new Font("Century", Font.PLAIN, 12));
 		mnNewMenu.add(mntmNewMenuItem);
 		contentPane = new JPanel();
@@ -149,8 +177,11 @@ public class TelPrincipal extends JFrame {
 		BoxProd.setFont(new Font("Century", Font.PLAIN, 12));
 		contentPane.add(BoxProd);
 		for(Produto listagem: produtoss) {
+			System.out.println(listagem);
+			if(listagem.getQtd() > -1) {
 			BoxProd.addItem(listagem.getNome());
 			}
+		}
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 129, 330, 387);
@@ -178,8 +209,22 @@ public class TelPrincipal extends JFrame {
 						if(VerificarTabela(tabela, BoxProd.getSelectedItem().toString()) ) {
 							String valor = val.getValueAt(Var, 1).toString();
 							int valorInt = Integer.parseInt(valor);
-							valorInt += 1;
-							val.setValueAt(valorInt, Var, 1);
+							
+							for(Produto listagem: produtoss) {
+								if(listagem.getNome().equals(BoxProd.getSelectedItem())) {
+									Produto Produto = new Produto(listagem.getCodigo(), listagem.getNome(), listagem.getValor());
+									VendaProduto VProd = new VendaProduto(Produto, 1);
+									if(venda.venderProdutoController(Prod, VProd)) {
+										valorInt += 1;
+										val.setValueAt(valorInt, Var, 1);
+									} else {
+										JOptionPane.showMessageDialog(null, "NÃO TEM MAIS ESTE PRODUTO EM ESTOQUE", "FALHA", JOptionPane.INFORMATION_MESSAGE);
+									}
+								}
+								
+								}
+
+							
 						}else {
 							String a = BoxProd.getSelectedItem().toString();
 							val.addRow(new String[] {a, "1"});
