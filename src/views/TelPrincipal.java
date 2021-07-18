@@ -1,7 +1,7 @@
 package views;
 
 import java.awt.BorderLayout;
-import controller.ControleProduto;
+import controller.ControllerProduto;
 import models.Produto;
 
 import java.awt.EventQueue;
@@ -37,7 +37,7 @@ import java.awt.event.WindowStateListener;
 
 public class TelPrincipal extends JFrame {
 	
-	ControleProduto Prod = new ControleProduto();
+	ControllerProduto Prod = new ControllerProduto();
 	
 	Set<Produto> produtoss;
 	

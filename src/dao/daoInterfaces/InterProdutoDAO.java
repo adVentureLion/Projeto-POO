@@ -1,4 +1,4 @@
-package dao;
+package dao.daoInterfaces;
 
 import java.util.Set;
 
@@ -8,6 +8,8 @@ public interface InterProdutoDAO {
     public boolean adicionarProduto (Produto produto);
 
     public boolean adicionarNoEstoque (int codigo, int qtd);
+    
+    public boolean removerNoEstoque (int codigo, int qtd);
     
     public boolean excluirProduto(int codigo);
 

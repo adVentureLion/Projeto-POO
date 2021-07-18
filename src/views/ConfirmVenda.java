@@ -1,7 +1,7 @@
 package views;
 
 import java.awt.BorderLayout;
-import controller.ControleProduto;
+import controller.ControllerProduto;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,7 +18,7 @@ import javax.swing.JTextField;
 
 public class ConfirmVenda extends JFrame {
 	
-	ControleProduto Prod = new ControleProduto();
+	ControllerProduto Prod = new ControllerProduto();
 	
 	String ValorFinal;
 	

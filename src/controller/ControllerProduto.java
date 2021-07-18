@@ -5,7 +5,7 @@ import java.util.Set;
 import dao.ProdutoDAO;
 import models.Produto;
 
-public class ControleProduto {
+public class ControllerProduto {
     private ProdutoDAO produtoDAO;
 
     public void iniciarProdutos() {
@@ -20,7 +20,11 @@ public class ControleProduto {
         return this.produtoDAO.adicionarNoEstoque(codigo, qtd);
     }
     
-    public boolean excluirProduto(int codigo){
+    public boolean removerNoEstoque(int codigo, int qtd) {
+        return this.produtoDAO.removerNoEstoque(codigo, qtd);
+    }
+
+    public boolean excluirProduto(int codigo) {
         return this.produtoDAO.excluirProduto(codigo);
     }
 

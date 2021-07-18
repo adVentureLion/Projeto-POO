@@ -5,7 +5,7 @@ import java.util.Set;
 import dao.ClienteDAO;
 import models.Cliente;
 
-public class ControleCliente {
+public class ControllerCliente {
     private ClienteDAO clienteDAO;
 
     public void iniciarClientes() {

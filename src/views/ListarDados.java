@@ -15,15 +15,15 @@ import java.awt.event.ActionListener;
 import java.util.Set;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
-import controller.ControleCliente;
+import controller.ControllerCliente;
 import models.Cliente;
 import models.Produto;
-import controller.ControleProduto;
+import controller.ControllerProduto;
 public class ListarDados extends JFrame {
 	
-	ControleCliente controle = new ControleCliente();
+	ControllerCliente controle = new ControllerCliente();
 	private Set<Cliente> clientes;
-	ControleProduto controleProd = new ControleProduto();
+	ControllerProduto controleProd = new ControllerProduto();
 	Set<Produto> produtos;
 	
 	private JPanel contentPane;

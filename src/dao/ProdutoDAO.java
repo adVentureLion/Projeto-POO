@@ -3,6 +3,8 @@ package dao;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+
+import dao.daoInterfaces.InterProdutoDAO;
 import database.ProdutoDB;
 import models.Produto;
 
@@ -43,7 +45,20 @@ public class ProdutoDAO extends ProdutoDB implements InterProdutoDAO{
             }
         }
             return false;
-    }           
+    }   
+    
+    @Override
+    public boolean removerNoEstoque(int codigo, int qtd) {
+        Iterator<Produto> pIterator = this.produtos.iterator();
+        while(pIterator.hasNext()) {
+            Produto p = pIterator.next();
+            if(p.getCodigo() == codigo){
+                p.setQtd(p.getQtd() - qtd);
+                return true;
+            }
+        }
+        return false;
+    } 
 
     @Override
     public boolean excluirProduto(int codigo) {
