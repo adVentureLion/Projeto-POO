@@ -34,7 +34,7 @@ public class VendaProduto {
 
     @Override
     public String toString() {
-        return this.getProduto().getNome() + " " +this.getProduto().getValor();
+        return this.getProduto().salvarNaVendas();
     }
 
 }

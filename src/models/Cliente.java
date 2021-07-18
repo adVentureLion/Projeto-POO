@@ -71,4 +71,8 @@ public class Cliente implements Serializable {
                this.sexo+";"+     
                this.dataNasci;     
     }
+
+    public String salvarNaVendaClie() {
+        return this.getNome()+";"+this.getCpf();
+    }
 }

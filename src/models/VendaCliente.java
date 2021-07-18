@@ -1,18 +1,21 @@
 package models;
 
-import java.util.Calendar;
+
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
 import java.util.List;
 
-public class Venda {
+public class VendaCliente {
     private List<VendaProduto> vendaProd;
     private Cliente cliente;
-    private Calendar dataVenda;
+    private SimpleDateFormat dataFormtada =  new SimpleDateFormat("dd/MM/yyyy HH:mm");
+    private GregorianCalendar dataVenda;
     private double valorDaVenda = 0;
     
-    public Venda(List<VendaProduto> vendaProd, Cliente cliente) {
+    public VendaCliente(List<VendaProduto> vendaProd, Cliente cliente) {
         this.vendaProd = vendaProd;
         this.cliente = cliente;
-        this.dataVenda = Calendar.getInstance();
+        this.dataVenda = new GregorianCalendar();
     }
 
     public void setVendaProd(List<VendaProduto> vendaProd) {
@@ -29,10 +32,10 @@ public class Venda {
         return cliente;
     }
 
-    public void setDataVenda(Calendar dataVenda) {
+    public void setDataVenda(GregorianCalendar dataVenda) {
         this.dataVenda = dataVenda;
     }
-    public Calendar getDataVenda() {
+    public GregorianCalendar getDataVenda() {
         return dataVenda;
     }
 
@@ -47,11 +50,10 @@ public class Venda {
     public String toString() {
         String descricao = ""; 
         for (VendaProduto vendaProduto : vendaProd) {
-            descricao += vendaProduto.toString();
+            descricao += vendaProduto.toString() + " ";
         }
-        System.out.println(descricao);
-        return this.getCliente().getNome() + ";" + this.getCliente().getCpf() +
-               ";" + descricao + ";" + this.getValorDaVenda() +";" + this.getDataVenda(); 
+        return this.getCliente().salvarNaVendaClie() +
+               ";" + descricao + ";" + this.getValorDaVenda() +";" + this.dataFormtada.format(dataVenda.getTimeInMillis()); 
     }
 
 }

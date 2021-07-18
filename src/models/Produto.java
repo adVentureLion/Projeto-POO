@@ -9,6 +9,12 @@ public class Produto implements Serializable {
     private double valor;
     private int qtd; 
 
+    
+    public Produto(String nome, double valor){
+        this.nome = nome;
+        this.valor = valor;
+    }
+
     public Produto(int codigo, String nome, double valor){
         this.codigo = codigo;
         this.nome = nome;
@@ -70,5 +76,9 @@ public class Produto implements Serializable {
                this.nome+";"+
                this.valor+";"+
                this.qtd;
+    }
+
+    public String salvarNaVendas(){
+        return this.nome +","+ this.valor;
     }
 }

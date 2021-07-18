@@ -1,7 +1,7 @@
 package views;
 
 import java.awt.BorderLayout;
-import controller.ControleCliente;
+import controller.ControllerCliente;
 import models.Cliente;
 
 import java.awt.EventQueue;
@@ -28,7 +28,7 @@ import java.awt.event.WindowEvent;
 
 public class CadastrarCliente extends JFrame {
 	
-	ControleCliente controle = new ControleCliente();
+	ControllerCliente controle = new ControllerCliente();
 	
 
 	private JPanel contentPane;
@@ -155,7 +155,7 @@ public class CadastrarCliente extends JFrame {
 							
 						}
 				}catch(NullPointerException w) {
-					JOptionPane.showMessageDialog(null, "CAMPO(S) OBRIGATÓRIOS NÃO PREENCHIDOS", "FALHA", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "CAMPO(S) OBRIGATï¿½RIOS Nï¿½O PREENCHIDOS", "FALHA", JOptionPane.INFORMATION_MESSAGE);
 				} catch(Exception q) {
 					JOptionPane.showMessageDialog(null, "ALGO DEU ERRADO", "FALHA", JOptionPane.INFORMATION_MESSAGE);
 				}

@@ -1,7 +1,7 @@
 package views;
 
 import java.awt.BorderLayout;
-import controller.ControleProduto;
+import controller.ControllerProduto;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -25,7 +25,7 @@ import javax.swing.SwingConstants;
 public class ListarProdutosExcluidos extends JFrame {
 
 	private JPanel contentPane;
-	ControleProduto  controle = new ControleProduto();
+	ControllerProduto  controle = new ControllerProduto();
 	Set<Produto> produtos;
 	private JTable tabela;
 

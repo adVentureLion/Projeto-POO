@@ -1,7 +1,7 @@
 package controller;
 
 import dao.VendaClienteDAO;
-import models.Venda;
+import models.VendaCliente;
 
 public class ControllerVendaCliente {
     private VendaClienteDAO vendaClienteDAO;
@@ -10,7 +10,7 @@ public class ControllerVendaCliente {
         this.vendaClienteDAO =  new VendaClienteDAO();
     }
 
-    public void calcularCompraCliente(Venda vendaCliente) {
+    public void calcularCompraCliente(VendaCliente vendaCliente) {
         this.vendaClienteDAO.calcularCompraCliente(vendaCliente);
     }
 }
