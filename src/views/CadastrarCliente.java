@@ -1,7 +1,7 @@
 package views;
 
 import java.awt.BorderLayout;
-import controller.ControleCliente;
+import controller.ControllerCliente;
 import models.Cliente;
 
 import java.awt.EventQueue;
@@ -28,7 +28,7 @@ import java.awt.event.WindowEvent;
 
 public class CadastrarCliente extends JFrame {
 	
-	ControleCliente controle = new ControleCliente();
+	ControllerCliente controle = new ControllerCliente();
 	
 
 	private JPanel contentPane;
