@@ -1,7 +1,11 @@
 package views;
 
 import java.awt.BorderLayout;
+import controller.ControllerCliente;
 import controller.ControllerProduto;
+import models.Cliente;
+import models.Produto;
+
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,13 +18,23 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.util.Set;
+
 import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ConfirmVenda extends JFrame {
 	
 	ControllerProduto Prod = new ControllerProduto();
 	
 	String ValorFinal;
+	
+	private Set<Cliente> clientes;
+	
+	ControllerCliente controle = new ControllerCliente();
+	
+	
 	
 	
 	private MaskFormatter mask(String mascara){ 
@@ -55,6 +69,9 @@ public class ConfirmVenda extends JFrame {
 	 * Create the frame.
 	 */
 	public ConfirmVenda() {
+		
+		controle.iniciarClientes();
+		clientes = controle.listarClienteController();
 		setTitle("VALIDA\u00C7\u00C3O DE CPF");
 	
 		
@@ -83,23 +100,33 @@ public class ConfirmVenda extends JFrame {
 		CPFNotOK.setVisible(false);
 		
 		JFormattedTextField tfCPF = new JFormattedTextField(mask("###.###.###-##"));
-		tfCPF.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent e) {
-				if(true) {
-					cpfOK.setVisible(true);					
-				}else {
-					CPFNotOK.setVisible(true);
-				}
-			}
-		});
 		tfCPF.setBounds(168, 19, 150, 40);
 		contentPane.add(tfCPF);
-		
 		JButton btnNewButton = new JButton("CONFIRMAR");
 		btnNewButton.setFont(new Font("Century", Font.PLAIN, 16));
 		btnNewButton.setBounds(168, 105, 150, 40);
 		contentPane.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("VERIFICAR");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					for (Cliente cliente : clientes) {
+						if(cliente.getCpf().equals(tfCPF.getText())) {
+							cpfOK.setVisible(true);
+							break;
+						} else {
+							cpfOK.setVisible(false);
+						}
+					}
+				}catch(Exception q) {
+					
+				}
+			}
+		});
+		btnNewButton_1.setFont(new Font("Century", Font.PLAIN, 10));
+		btnNewButton_1.setBounds(168, 70, 116, 24);
+		contentPane.add(btnNewButton_1);
 		
 	}
 }

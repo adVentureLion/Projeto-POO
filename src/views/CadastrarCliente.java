@@ -134,28 +134,28 @@ public class CadastrarCliente extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if(tfNome.getText().equals("") || ftfCPF.getText().equals("   .   .   -  ") || ftfData.getText().equals("  /  /     ") || (rbF.isSelected() || rbM.isSelected())) {
+					if(tfNome.getText().equals("") || ftfCPF.getText().equals("   .   .   -  ") || ftfData.getText().equals("  /  /     ") || (rbF.isSelected() == false) && (rbM.isSelected() == false)) {
 						throw new NullPointerException();
 					}
 						else {
-							String nome = tfNome.getText();
-							String cpf = ftfCPF.getText();
-							String data = ftfData.getText();
-							String sexo;
+							String nome = tfNome.getText().toString();
+							String cpf = ftfCPF.getText().toString();
+							String data = ftfData.getText().toString();
+							String sexo = null;
 							if(rbF.isSelected()) {
 								sexo = "Feminino";
-							}else {
+							}if(rbM.isSelected()) {
 								sexo = "Masculino";
 							}
 							
 							Cliente cliente = new Cliente(nome, cpf, data, sexo);
-							controle.adicionarClienteController(cliente);
+							if(controle.adicionarClienteController(cliente)) {
+								JOptionPane.showMessageDialog(null, "CADASTRADO COM SECESSO", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
+							}
 							
-							JOptionPane.showMessageDialog(null, "CADASTRADO COM SECESSO", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
+							
 							
 						}
-				}catch(NullPointerException w) {
-					
 				} catch(Exception q) {
 					JOptionPane.showMessageDialog(null, "ALGO DEU ERRADO", "FALHA", JOptionPane.INFORMATION_MESSAGE);
 				}

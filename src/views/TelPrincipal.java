@@ -176,8 +176,8 @@ public class TelPrincipal extends JFrame {
 		BoxProd.setFont(new Font("Century", Font.PLAIN, 12));
 		contentPane.add(BoxProd);
 		for(Produto listagem: produtoss) {
-			System.out.println(listagem);
-			if(listagem.getQtd() > -1) {
+			
+			if(listagem.getQtd() > 0) {
 			BoxProd.addItem(listagem.getNome());
 			}
 		}
@@ -208,10 +208,9 @@ public class TelPrincipal extends JFrame {
 						if(VerificarTabela(tabela, BoxProd.getSelectedItem().toString()) ) {
 							String valor = val.getValueAt(Var, 1).toString();
 							int valorInt = Integer.parseInt(valor);
-							
 							for(Produto listagem: produtoss) {
 								if(listagem.getNome().equals(BoxProd.getSelectedItem())) {
-									Produto Produto = new Produto(listagem.getCodigo(), listagem.getNome(), listagem.getValor());
+									Produto Produto = new Produto(listagem.getCodigo(), listagem.getNome(), listagem.getValor(), listagem.getQtd());
 									VendaProduto VProd = new VendaProduto(Produto, 1);
 									if(venda.venderProdutoController(Prod, VProd)) {
 										valorInt += 1;
@@ -225,7 +224,16 @@ public class TelPrincipal extends JFrame {
 
 							
 						}else {
+							
 							String a = BoxProd.getSelectedItem().toString();
+							
+							for(Produto listagem: produtoss) {
+								if(listagem.getNome().equals(a)) {
+									Produto Produto = new Produto(listagem.getCodigo(), listagem.getNome(), listagem.getValor(), listagem.getQtd());
+									VendaProduto VProd = new VendaProduto(Produto, 1);
+									venda.venderProdutoController(Prod, VProd);
+								}
+							}
 							val.addRow(new String[] {a, "1"});
 					}
 						
@@ -267,8 +275,6 @@ public class TelPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 				if( val.getRowCount() > 0 ) {
-					
-					confirm.ValorFinal = ValorFinal.toString();
 					confirm.setVisible(true);
 				} else {
 					throw new Exception();
