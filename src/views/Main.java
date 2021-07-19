@@ -8,10 +8,9 @@ import controller.ControllerCliente;
 import controller.ControllerProduto;
 import controller.ControllerVendaCliente;
 import controller.ControllerVendaProduto;
-import controller.ControllerVendas;
 import models.Cliente;
 import models.Produto;
-import models.VendaCliente;
+import models.Venda;
 import models.VendaProduto;
 
 public class Main {
@@ -19,18 +18,23 @@ public class Main {
         ControllerProduto cp = new ControllerProduto();
         ControllerVendaProduto cvp = new ControllerVendaProduto();
         ControllerVendaCliente cvc = new ControllerVendaCliente();
-        ControllerVendas cv = new ControllerVendas();
-        cv.iniciarVendas();
         cp.iniciarProdutos();
-
-        Produto p1 = new Produto(1, "B", 15.0, 0);
-        Produto p2 = new Produto(2, "A", 15.0, 3);
-        Produto p3 = new Produto(3, "D", 15.0, 3);
+        ControllerProduto controle= new ControllerProduto();
+        controle.iniciarProdutos();
+        TelPrincipal tela = new TelPrincipal();
+        
+        tela.setVisible(true);
+        
+        /*Produto p1 = new Produto(8888, "bala", 15.0, 0);
+        Produto p2 = new Produto(5, "rggr", 15.0, 3);
+        Produto p3 = new Produto(8, "gb", 15.0, 3);
 
 
         cp.adicionarProdutoController(p1);
         cp.adicionarProdutoController(p2);
         cp.adicionarProdutoController(p3);
+        
+        cp.atualizarProdutosController();
 
         // // cp.adicionarNoEstoque(2, 10);
         // // Produto p1 = new Produto(2, "a", 10, 5);
@@ -67,11 +71,11 @@ public class Main {
         //     System.out.println(produto);
         // }
 
-
+/*
         ControllerCliente cc = new ControllerCliente();
         cc.iniciarClientes();
 
-        Cliente c1 = new Cliente("Joao", "122.752.864-14", "25/10/1996", "F");      
+        Cliente c1 = new Cliente("Joao", "122.752.864-14", "25/10/1996", "F");*/      
         // Cliente c2 = new Cliente("Joana", "111.752.864-14", "25/10/1996", "F");      
         // Cliente c3 = new Cliente("Taiga", "156.752.864-14", "25/10/1996", "F");      
         // Cliente c4 = new Cliente("Beto", "188.752.864-14", "25/10/1996", "F");    
@@ -103,10 +107,11 @@ public class Main {
         // }
 
 
-
+        
 
 
         
+<<<<<<< HEAD
         List<VendaProduto> vendasDeProdutos = new ArrayList<>();
         VendaProduto vp = new VendaProduto(p2, 1);
         if((cvp.venderProdutoController(cp, vp)))
@@ -115,27 +120,46 @@ public class Main {
         vp = new VendaProduto(p3, 1);
         if((cvp.venderProdutoController(cp, vp)))
             vendasDeProdutos.add(vp);
+=======
+        /*//List<VendaProduto> vendasDeProdutos = new ArrayList<>();
+       // VendaProduto vp = new VendaProduto(p2, 2);
+       // if((cvp.venderProdutoController(cp, vp)))
+          //  vendasDeProdutos.add(vp);
+
+       // vp = new VendaProduto(p3, 1);
+       // if((cvp.venderProdutoController(cp, vp)))
+          //  vendasDeProdutos.add(vp);
+>>>>>>> 4faafac0a7cd2916834ef7dc7ab7767e1f6687bd
         
-        VendaCliente vc = new VendaCliente(vendasDeProdutos, c1);
+        Venda vc = new Venda(vendasDeProdutos, c1);
         cvc.calcularCompraCliente(vc);
         System.out.println(vc); 
+<<<<<<< HEAD
         
 
         cv.adicionarVendasController(vc);
         
 
         cv.atualizarAqurivoVendasController();
+=======
+                
+>>>>>>> 4faafac0a7cd2916834ef7dc7ab7767e1f6687bd
         cc.atualizarClientesController();
         cp.atualizarProdutosController();
+        
 
         Set<Produto> produtos = cp.listarProdutosController();
         for (Produto produto : produtos) {
             System.out.println(produto);
+<<<<<<< HEAD
         }
         List<VendaCliente> vendas = cv.listarVendasController();
         for (VendaCliente vendas2 : vendas) {
             System.out.println(vendas2);
         }
+=======
+        }*/
+>>>>>>> 4faafac0a7cd2916834ef7dc7ab7767e1f6687bd
 
     }
 }

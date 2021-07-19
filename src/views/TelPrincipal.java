@@ -1,8 +1,10 @@
 package views;
 
-
 import java.awt.BorderLayout;
+
+import controller.ControllerCliente;
 import controller.ControllerProduto;
+import controller.ControllerVendaCliente;
 import models.Produto;
 
 import java.awt.EventQueue;
@@ -43,6 +45,10 @@ public class TelPrincipal extends JFrame {
 	
 	ControllerProduto Prod = new ControllerProduto();
 	
+	ControllerCliente c = new ControllerCliente();
+	
+	ControllerVendaCliente vc = new ControllerVendaCliente();
+	
 	ControllerVendaProduto venda = new ControllerVendaProduto();
 	
 	CadastrarCliente cadastrar = new CadastrarCliente();
@@ -50,6 +56,11 @@ public class TelPrincipal extends JFrame {
 	ListarDados listar = new ListarDados();
 	
 	ListarProdutosExcluidos listarEx = new ListarProdutosExcluidos();
+	CadastrarProduto cad = new CadastrarProduto();
+	
+	ListarClientesEx ListarCEx = new ListarClientesEx();
+	
+	VendaProduto VProd;
 	
 	
 	
@@ -98,7 +109,19 @@ public class TelPrincipal extends JFrame {
 	
 	
 	public TelPrincipal() {
-		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				Prod.iniciarProdutos();
+				c.iniciarClientes();
+				
+			}
+			@Override
+			public void windowClosed(WindowEvent e) {
+				Prod.atualizarProdutosController();
+				c.atualizarClientesController();
+			}
+		});
 		
 		
 		
@@ -125,6 +148,11 @@ public class TelPrincipal extends JFrame {
 		mnNewMenu.add(mnNewMenu_1);
 		
 		JMenuItem CadProduto = new JMenuItem("Cadastrar");
+		CadProduto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cad.setVisible(true);
+			}
+		});
 		CadProduto.setFont(new Font("Century", Font.PLAIN, 12));
 		mnNewMenu_1.add(CadProduto);
 		
@@ -144,6 +172,7 @@ public class TelPrincipal extends JFrame {
 		JMenuItem CadCliente = new JMenuItem("Cadastrar Cliente");
 		CadCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				cadastrar.setVisible(true);
 			}
 		});
@@ -151,12 +180,18 @@ public class TelPrincipal extends JFrame {
 		mnNewMenu_2.add(CadCliente);
 		
 		JMenuItem ListarCadExc = new JMenuItem("Listar Cliente Exclu\u00EDdos");
+		ListarCadExc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListarCEx.setVisible(true);
+			}
+		});
 		ListarCadExc.setFont(new Font("Century", Font.PLAIN, 12));
 		mnNewMenu_2.add(ListarCadExc);
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("Listar Dados");
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				listar.setVisible(true);
 			}
 		});
@@ -179,6 +214,7 @@ public class TelPrincipal extends JFrame {
 		for(Produto listagem: produtoss) {
 			
 			if(listagem.getQtd() > 0) {
+				
 			BoxProd.addItem(listagem.getNome());
 			}
 		}
@@ -212,7 +248,7 @@ public class TelPrincipal extends JFrame {
 							for(Produto listagem: produtoss) {
 								if(listagem.getNome().equals(BoxProd.getSelectedItem())) {
 									Produto Produto = new Produto(listagem.getCodigo(), listagem.getNome(), listagem.getValor(), listagem.getQtd());
-									VendaProduto VProd = new VendaProduto(Produto, 1);
+									VProd = new VendaProduto(Produto, 1);
 									if(venda.venderProdutoController(Prod, VProd)) {
 										valorInt += 1;
 										val.setValueAt(valorInt, Var, 1);
@@ -277,6 +313,7 @@ public class TelPrincipal extends JFrame {
 				try {
 				if( val.getRowCount() > 0 ) {
 					confirm.setVisible(true);
+					confirm.produtos = (Set<VendaProduto>) VProd;
 				} else {
 					throw new Exception();
 				}
@@ -306,7 +343,24 @@ public class TelPrincipal extends JFrame {
 		
 		
 		
-		
+		addWindowFocusListener(new WindowFocusListener() {
+			public void windowGainedFocus(WindowEvent e) {
+				c.atualizarClientesController();
+				c.iniciarClientes();
+				Prod.iniciarProdutos();
+				produtoss = Prod.listarProdutosController();
+				BoxProd.removeAllItems();
+				for(Produto listagem: produtoss) {
+					
+					if(listagem.getQtd() > 0) {
+						
+					BoxProd.addItem(listagem.getNome());
+					}
+				}
+			}
+			public void windowLostFocus(WindowEvent e) {
+			}
+		});
 	}
 	
 

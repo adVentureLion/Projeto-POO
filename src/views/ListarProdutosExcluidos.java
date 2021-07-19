@@ -21,6 +21,8 @@ import models.Cliente;
 import models.Produto;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import java.awt.event.WindowFocusListener;
+import java.awt.event.WindowEvent;
 
 public class ListarProdutosExcluidos extends JFrame {
 
@@ -50,6 +52,7 @@ public class ListarProdutosExcluidos extends JFrame {
 	 * Create the frame.
 	 */
 	public ListarProdutosExcluidos() {
+		
 		
 		controle.iniciarProdutos();
 		produtos = controle.listarProdutosExcluidosController();
@@ -85,7 +88,22 @@ public class ListarProdutosExcluidos extends JFrame {
 		
 		
 		
-		
+		addWindowFocusListener(new WindowFocusListener() {
+			public void windowGainedFocus(WindowEvent e) {
+				
+				
+				
+				while(auxProduto.getRowCount()>0){
+					auxProduto.removeRow(0);
+				}
+				for(Produto listagemProd: produtos) {
+					auxProduto.addRow(new String [] {listagemProd.getNome(), Integer.toString(listagemProd.getCodigo()) , Double.toString(listagemProd.getValor()), Integer.toString(listagemProd.getQtd())});;
+				}
+				tabela.revalidate();
+			}
+			public void windowLostFocus(WindowEvent e) {
+			}
+		});
 		
 		
 		

@@ -22,16 +22,19 @@ import models.Produto;
 import controller.ControllerProduto;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
 public class ListarDados extends JFrame {
 	
 	ControllerCliente controle = new ControllerCliente();
-	private Set<Cliente> clientes;
+	Set<Cliente> clientes;
 	ControllerProduto controleProd = new ControllerProduto();
 	Set<Produto> produtos;
 	
 	private JPanel contentPane;
 	private JTable tabelaCliente;
 	private JTable tabelaProduto;
+	
+	Estoque estoque = new Estoque();
 
 	/**
 	 * Launch the application.
@@ -53,13 +56,7 @@ public class ListarDados extends JFrame {
 	 * Create the frame.
 	 */
 	public ListarDados() {
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosed(WindowEvent e) {
-				controle.atualizarClientesController();
-				controleProd.atualizarProdutosController();
-			}
-		});
+		
 		
 		controle.iniciarClientes();
 		clientes = controle.listarClienteController();
@@ -131,6 +128,8 @@ public class ListarDados extends JFrame {
 				controle.excluirCliente(nome);
 				auxCliente.removeRow(tabelaCliente.getSelectedRow());
 				JOptionPane.showMessageDialog(null, "CLIENTE EXCLUÍDO COM SECESSO", "SUCESSO", 2);
+				controle.atualizarClientesController();
+				controleProd.atualizarProdutosController();
 				}catch(Exception q) {
 					JOptionPane.showMessageDialog(null, "ALGO DEU ERRADO. TENTE NOVAMENTE", "ERRO", 2);
 				}
@@ -150,6 +149,8 @@ public class ListarDados extends JFrame {
 					controleProd.excluirProduto(cod);
 					auxProduto.removeRow(tabelaProduto.getSelectedRow());
 					JOptionPane.showMessageDialog(null, "PRODUTO EXCLUÍDO COM SECESSO", "SUCESSO", 2);
+					controle.atualizarClientesController();
+					controleProd.atualizarProdutosController();
 					}catch(Exception q) {
 						JOptionPane.showMessageDialog(null, "ALGO DEU ERRADO. TENTE NOVAMENTE", "ERRO", 2);
 					}
@@ -160,6 +161,20 @@ public class ListarDados extends JFrame {
 		contentPane.add(excluirProduto);
 		
 		JButton Estoque = new JButton("ESTOQUE");
+		Estoque.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+				String str = tabelaProduto.getValueAt(tabelaProduto.getSelectedRow(), 1).toString();
+				int cod = Integer.parseInt(str);
+				estoque.cod = cod;
+				controleProd.atualizarProdutosController();
+				estoque.setVisible(true);
+				}catch(Exception q) {
+					JOptionPane.showMessageDialog(null, "ALGO DEU ERRADO. TENTE NOVAMENTE", "ERRO", 2);
+				}
+				
+			}
+		});
 		Estoque.setFont(new Font("Century", Font.PLAIN, 12));
 		Estoque.setBounds(399, 363, 121, 23);
 		contentPane.add(Estoque);
@@ -222,6 +237,52 @@ public class ListarDados extends JFrame {
 		scrollPaneProduto.setVisible(false);
 		excluirProduto.setVisible(false);
 		Estoque.setVisible(false);
+		addWindowFocusListener(new WindowFocusListener() {
+			public void windowGainedFocus(WindowEvent e) {
+				
+				controle.iniciarClientes();
+				clientes = controle.listarClienteController();
+				
+				while(auxCliente.getRowCount()>0){
+					auxCliente.removeRow(0);
+				}
+				for(Cliente listagem: clientes) {
+					auxCliente.addRow(new String [] {listagem.getNome(), listagem.getCpf(), listagem.getDataNasci(), listagem.getSexo()});;
+				}
+				tabelaCliente.revalidate();
+		
+				while(auxProduto.getRowCount()>0){
+					auxProduto.removeRow(0);
+				}
+				for(Produto listagemProd: produtos) {
+					auxProduto.addRow(new String [] {listagemProd.getNome(), Integer.toString(listagemProd.getCodigo()) , Double.toString(listagemProd.getValor()), Integer.toString(listagemProd.getQtd())});;
+				}
+				tabelaProduto.revalidate();
+				
+			}
+			public void windowLostFocus(WindowEvent e) {
+			}
+		});
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				controle.atualizarClientesController();
+				controleProd.atualizarProdutosController();
+			}
+			@Override
+			public void windowActivated(WindowEvent e) {
+				controle.iniciarClientes();
+				clientes = controle.listarClienteController();
+				for(Cliente listagem: clientes) {
+					auxCliente.addRow(new String [] {listagem.getNome(), listagem.getCpf(), listagem.getDataNasci(), listagem.getSexo()});;
+				}
+				
+				for(Produto listagemProd: produtos) {
+					auxProduto.addRow(new String [] {listagemProd.getNome(), Integer.toString(listagemProd.getCodigo()) , Double.toString(listagemProd.getValor()), Integer.toString(listagemProd.getQtd())});;
+				}
+				
+			}
+		});
 		
 	}
 }

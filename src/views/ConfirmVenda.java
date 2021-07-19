@@ -3,8 +3,10 @@ package views;
 import java.awt.BorderLayout;
 import controller.ControllerCliente;
 import controller.ControllerProduto;
+import controller.ControllerVendaProduto;
 import models.Cliente;
 import models.Produto;
+import models.VendaProduto;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
@@ -28,11 +30,15 @@ public class ConfirmVenda extends JFrame {
 	
 	ControllerProduto Prod = new ControllerProduto();
 	
+	ControllerVendaProduto venda = new ControllerVendaProduto();
+	
 	String ValorFinal;
 	
 	private Set<Cliente> clientes;
 	
 	ControllerCliente controle = new ControllerCliente();
+	
+	Set<VendaProduto> produtos; 
 	
 	
 	
@@ -76,7 +82,7 @@ public class ConfirmVenda extends JFrame {
 	
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 344, 200);
+		setBounds(100, 100, 344, 260);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -104,19 +110,24 @@ public class ConfirmVenda extends JFrame {
 		contentPane.add(tfCPF);
 		JButton btnNewButton = new JButton("CONFIRMAR");
 		btnNewButton.setFont(new Font("Century", Font.PLAIN, 16));
-		btnNewButton.setBounds(168, 105, 150, 40);
+		btnNewButton.setBounds(168, 170, 150, 40);
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("VERIFICAR");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					for (VendaProduto cliente : produtos) {
+						System.out.println(cliente);
+					}
 					for (Cliente cliente : clientes) {
 						if(cliente.getCpf().equals(tfCPF.getText())) {
 							cpfOK.setVisible(true);
+							CPFNotOK.setVisible(false);
 							break;
 						} else {
 							cpfOK.setVisible(false);
+							CPFNotOK.setVisible(true);
 						}
 					}
 				}catch(Exception q) {
@@ -127,6 +138,8 @@ public class ConfirmVenda extends JFrame {
 		btnNewButton_1.setFont(new Font("Century", Font.PLAIN, 10));
 		btnNewButton_1.setBounds(168, 70, 116, 24);
 		contentPane.add(btnNewButton_1);
+		
+		
 		
 	}
 }
