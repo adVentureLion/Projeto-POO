@@ -13,7 +13,6 @@ import models.Cliente;
 import models.Produto;
 import models.VendaCliente;
 import models.VendaProduto;
-import models.Vendas;
 
 public class Main {
     public static void main(String[] args)  {
@@ -109,7 +108,7 @@ public class Main {
 
         
         List<VendaProduto> vendasDeProdutos = new ArrayList<>();
-        VendaProduto vp = new VendaProduto(p2, 2);
+        VendaProduto vp = new VendaProduto(p2, 1);
         if((cvp.venderProdutoController(cp, vp)))
             vendasDeProdutos.add(vp);
 
@@ -121,11 +120,11 @@ public class Main {
         cvc.calcularCompraCliente(vc);
         System.out.println(vc); 
         
-        List<VendaCliente> vendasCliente = new ArrayList<>();
 
-        vendasCliente.add(vc);
+        cv.adicionarVendasController(vc);
+        
 
-        cv.atualizarVendasController(vendasCliente);
+        cv.atualizarAqurivoVendasController();
         cc.atualizarClientesController();
         cp.atualizarProdutosController();
 
@@ -133,9 +132,9 @@ public class Main {
         for (Produto produto : produtos) {
             System.out.println(produto);
         }
-        List<Vendas> vendas = cv.listarVendasController();
-        for (Vendas vendas2 : vendas) {
-            System.out.println(vendas2.getNomeCliente());
+        List<VendaCliente> vendas = cv.listarVendasController();
+        for (VendaCliente vendas2 : vendas) {
+            System.out.println(vendas2);
         }
 
     }

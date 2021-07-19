@@ -10,6 +10,10 @@ public class VendaProduto {
         this.setQuantidade(quantidade);
     }
 
+    public VendaProduto(Produto produto){
+        this.produto = produto;
+    }
+
 
     public void setProduto(Produto produto) {
         this.produto = produto;

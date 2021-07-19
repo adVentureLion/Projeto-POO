@@ -5,21 +5,24 @@ import java.util.List;
 import dao.daoInterfaces.InterVendasDAO;
 import database.VendasDB;
 import models.VendaCliente;
-import models.Vendas;
 
 public class VendasDAO extends VendasDB implements InterVendasDAO {
-    List<Vendas> vendas;
+    List<VendaCliente> vendasClientes;
 
     public VendasDAO() {
-        this.vendas = super.listarVendas();
+        this.vendasClientes = super.listarVendas();
     }
 
-    public void atualizarVendas(List<VendaCliente> vendasCliente) {
-        super.atualizarAqurivoVendas(vendasCliente);
+    public void adicionarVendas(VendaCliente vendaCliente) {
+        this.vendasClientes.add(vendaCliente);
     }
 
     @Override
-    public List<Vendas> exibirVendasFeitas() {
-        return this.vendas;
+    public List<VendaCliente> exibirVendasFeitas() {
+        return this.vendasClientes;
+    }
+
+    public void atualizarAqurivoVendas() {
+        super.atualizarAqurivoVendas(vendasClientes);
     }
 }

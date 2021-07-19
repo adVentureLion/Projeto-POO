@@ -8,7 +8,7 @@ import java.util.List;
 public class VendaCliente {
     private List<VendaProduto> vendaProd;
     private Cliente cliente;
-    private SimpleDateFormat dataFormtada =  new SimpleDateFormat("dd/MM/yyyy HH:mm");
+    private SimpleDateFormat dataFormtada = new SimpleDateFormat("dd/MM/yyyy HH:mm");
     private GregorianCalendar dataVenda;
     private double valorDaVenda = 0;
     
@@ -48,12 +48,7 @@ public class VendaCliente {
     
     @Override
     public String toString() {
-        String descricao = ""; 
-        for (VendaProduto vendaProduto : vendaProd) {
-            descricao += vendaProduto.toString() + " ";
-        }
-        return this.getCliente().salvarNaVendaClie() +
-               ";" + descricao + ";" + this.getValorDaVenda() +";" + this.dataFormtada.format(dataVenda.getTimeInMillis()); 
+        return this.getCliente().salvarNaVendaClie() +";" + this.getVendaProd() + ";" + this.getValorDaVenda() +";" + this.dataFormtada.format(dataVenda.getTimeInMillis()); 
     }
 
 }

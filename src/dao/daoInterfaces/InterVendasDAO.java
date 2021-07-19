@@ -2,9 +2,10 @@ package dao.daoInterfaces;
 
 import java.util.List;
 
-import models.Vendas;
+import models.VendaCliente;
+
 
 public interface InterVendasDAO {
 
-    public List<Vendas> exibirVendasFeitas();
+    public List<VendaCliente> exibirVendasFeitas();
 }
