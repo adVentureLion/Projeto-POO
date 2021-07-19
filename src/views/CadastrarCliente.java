@@ -2,6 +2,7 @@ package views;
 
 import java.awt.BorderLayout;
 import controller.ControllerCliente;
+import controller.ControllerProduto;
 import models.Cliente;
 
 import java.awt.EventQueue;
@@ -30,6 +31,10 @@ public class CadastrarCliente extends JFrame {
 	
 	ControllerCliente controle = new ControllerCliente();
 	
+	ControllerProduto Prod = new ControllerProduto();
+	
+	
+	
 
 	private JPanel contentPane;
 	private JTextField tfNome;
@@ -49,6 +54,7 @@ public class CadastrarCliente extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		ControllerCliente controle = new ControllerCliente();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -69,6 +75,11 @@ public class CadastrarCliente extends JFrame {
 			@Override
 			public void windowClosed(WindowEvent e) {
 				controle.atualizarClientesController();
+			}
+			@Override
+			public void windowActivated(WindowEvent e) {
+				controle.iniciarClientes();
+				
 			}
 		});
 		
@@ -134,11 +145,7 @@ public class CadastrarCliente extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if(tfNome.getText().equals("") || ftfCPF.getText().equals("   .   .   -  ") || ftfData.getText().equals("  /  /     ") || (rbF.isSelected() == false) && (rbM.isSelected() == false)) {
-						
-						throw new NullPointerException();
-					}
-						else {
+							
 							String nome = tfNome.getText().toString();
 							String cpf = ftfCPF.getText().toString();
 							String data = ftfData.getText().toString();
@@ -150,14 +157,16 @@ public class CadastrarCliente extends JFrame {
 							}
 							
 							Cliente cliente = new Cliente(nome, cpf, data, sexo);
-							controle.adicionarClienteController(cliente);
 							
-							JOptionPane.showMessageDialog(null, "CADASTRADO COM SECESSO", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
+							if(controle.adicionarClienteController(cliente)) {
+								
+								JOptionPane.showMessageDialog(null, "CADASTRADO COM SECESSO", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
+							}
 							
-						}
-				}catch(NullPointerException w) {
-					JOptionPane.showMessageDialog(null, "CAMPO(S) OBRIGATÓRIOS NÃO PREENCHIDOS", "FALHA", JOptionPane.INFORMATION_MESSAGE);
-				} catch(Exception q) {
+						
+							
+						
+				}catch(Exception q) {
 					JOptionPane.showMessageDialog(null, "ALGO DEU ERRADO", "FALHA", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
