@@ -40,7 +40,9 @@ public class Estoque extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
 		EventQueue.invokeLater(new Runnable() {
+			
 			public void run() {
 				try {
 					Estoque frame = new Estoque();
@@ -66,6 +68,10 @@ public class Estoque extends JFrame {
 						tfqt.setText(String.valueOf(produto.getQtd()));
 					}
 				}
+			}
+			@Override
+			public void windowClosed(WindowEvent e) {
+				controle.atualizarProdutosController();
 			}
 		});
 		
@@ -126,6 +132,7 @@ public class Estoque extends JFrame {
 						int qtd = Integer.parseInt(tfADD.getText());
 						controle.adicionarNoEstoque(cod, qtd);
 						controle.atualizarProdutosController();
+						JOptionPane.showMessageDialog(null, "QUANTIDADE ADICIONADA NO ESTOQUE", "OK", JOptionPane.INFORMATION_MESSAGE);
 						}
 					
 					
@@ -156,6 +163,24 @@ public class Estoque extends JFrame {
 		tfRemove.setColumns(10);
 		
 		JButton btnNewButton_1 = new JButton("");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if(tfRemove.getText().equals("")) {
+						JOptionPane.showMessageDialog(null, "CAMPO VAZIO", "FALHA", JOptionPane.INFORMATION_MESSAGE);
+					} else {
+						int qtd = Integer.parseInt(tfRemove.getText());
+						controle.removerNoEstoque(cod, qtd);
+						controle.atualizarProdutosController();
+						JOptionPane.showMessageDialog(null, "QUANTIDADE TIRADA DO ESTOQUE", "OK", JOptionPane.INFORMATION_MESSAGE);
+						}
+					
+					
+				}catch(Exception w){
+					JOptionPane.showMessageDialog(null, "CAMPO VAZIO", "FALHA", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
 		btnNewButton_1.setIcon(new ImageIcon(Estoque.class.getResource("/util/check-bold.png")));
 		btnNewButton_1.setBounds(10, 78, 80, 23);
 		panel_1.add(btnNewButton_1);

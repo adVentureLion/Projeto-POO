@@ -19,15 +19,22 @@ public class Main {
         ControllerVendaProduto cvp = new ControllerVendaProduto();
         ControllerVendaCliente cvc = new ControllerVendaCliente();
         cp.iniciarProdutos();
-
-        Produto p1 = new Produto(1, "B", 15.0, 0);
-        Produto p2 = new Produto(2, "A", 15.0, 3);
-        Produto p3 = new Produto(3, "D", 15.0, 3);
+        ControllerProduto controle= new ControllerProduto();
+        controle.iniciarProdutos();
+        TelPrincipal tela = new TelPrincipal();
+        
+        tela.setVisible(true);
+        
+        /*Produto p1 = new Produto(8888, "bala", 15.0, 0);
+        Produto p2 = new Produto(5, "rggr", 15.0, 3);
+        Produto p3 = new Produto(8, "gb", 15.0, 3);
 
 
         cp.adicionarProdutoController(p1);
         cp.adicionarProdutoController(p2);
         cp.adicionarProdutoController(p3);
+        
+        cp.atualizarProdutosController();
 
         // // cp.adicionarNoEstoque(2, 10);
         // // Produto p1 = new Produto(2, "a", 10, 5);
@@ -64,11 +71,11 @@ public class Main {
         //     System.out.println(produto);
         // }
 
-
+/*
         ControllerCliente cc = new ControllerCliente();
         cc.iniciarClientes();
 
-        Cliente c1 = new Cliente("Joao", "122.752.864-14", "25/10/1996", "F");      
+        Cliente c1 = new Cliente("Joao", "122.752.864-14", "25/10/1996", "F");*/      
         // Cliente c2 = new Cliente("Joana", "111.752.864-14", "25/10/1996", "F");      
         // Cliente c3 = new Cliente("Taiga", "156.752.864-14", "25/10/1996", "F");      
         // Cliente c4 = new Cliente("Beto", "188.752.864-14", "25/10/1996", "F");    
@@ -100,18 +107,18 @@ public class Main {
         // }
 
 
-
+        
 
 
         
-        List<VendaProduto> vendasDeProdutos = new ArrayList<>();
-        VendaProduto vp = new VendaProduto(p2, 2);
-        if((cvp.venderProdutoController(cp, vp)))
-            vendasDeProdutos.add(vp);
+        /*//List<VendaProduto> vendasDeProdutos = new ArrayList<>();
+       // VendaProduto vp = new VendaProduto(p2, 2);
+       // if((cvp.venderProdutoController(cp, vp)))
+          //  vendasDeProdutos.add(vp);
 
-        vp = new VendaProduto(p3, 1);
-        if((cvp.venderProdutoController(cp, vp)))
-            vendasDeProdutos.add(vp);
+       // vp = new VendaProduto(p3, 1);
+       // if((cvp.venderProdutoController(cp, vp)))
+          //  vendasDeProdutos.add(vp);
         
         Venda vc = new Venda(vendasDeProdutos, c1);
         cvc.calcularCompraCliente(vc);
@@ -124,7 +131,7 @@ public class Main {
         Set<Produto> produtos = cp.listarProdutosController();
         for (Produto produto : produtos) {
             System.out.println(produto);
-        }
+        }*/
 
     }
 }

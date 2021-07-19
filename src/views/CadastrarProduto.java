@@ -22,6 +22,7 @@ import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Set;
 import java.awt.event.ActionEvent;
 
 public class CadastrarProduto extends JFrame {
@@ -30,6 +31,7 @@ public class CadastrarProduto extends JFrame {
 	
 	ControllerCliente c = new ControllerCliente();
 	
+	Set<Produto> produtos;
 	
 
 	private JPanel contentPane;
@@ -43,6 +45,7 @@ public class CadastrarProduto extends JFrame {
 	 */
 	public static void main(String[] args) {
 		ControllerProduto controle= new ControllerProduto();
+		controle.iniciarProdutos();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -63,10 +66,12 @@ public class CadastrarProduto extends JFrame {
 			@Override
 			public void windowClosed(WindowEvent e) {
 				controle.atualizarProdutosController();
+				c.atualizarClientesController();
 			}
 			@Override
 			public void windowActivated(WindowEvent e) {
 				controle.iniciarProdutos();
+				c.iniciarClientes();
 				
 			}
 		});
@@ -128,26 +133,22 @@ public class CadastrarProduto extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if(tfNome.getText().equals("") || tfCod.getText().equals("") || tfValor.getText().equals("") || tfQTD.getText().equals("")) {
-						throw new NullPointerException();
-					}
-					else {
+
 							String nome = tfNome.getText();
 							int cod = Integer.parseInt(tfCod.getText());
 							double valor = Double.valueOf(tfValor.getText());
 							int qtd = Integer.parseInt(tfQTD.getText());
 							Produto produto = new Produto(cod, nome, valor, qtd);
-							controle.adicionarProdutoController(produto);
-							controle.atualizarProdutosController();
+							if(controle.adicionarProdutoController(produto)) {
 							
+							JOptionPane.showMessageDialog(null, "CADASTRADO COM SUCESSO", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
 							
-					JOptionPane.showMessageDialog(null, "CADASTRADO COM SECESSO", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
-							
+							controle.atualizarProdutosController();	
 						}
 				}catch(NullPointerException w) {
 					JOptionPane.showMessageDialog(null, "CAMPO(S) OBRIGATÓRIOS NÃO PREENCHIDOS", "FALHA", JOptionPane.INFORMATION_MESSAGE);
 				} catch(Exception q) {
-					JOptionPane.showMessageDialog(null, "ALGO DEU ERRADO", "FALHA", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "DIGITE OS VALORES DO TIPO CERTO NOS CAMPOS.\n 'nome' é caractere\n 'código', 'valor', e 'quantidade' são números ", "FALHA", JOptionPane.INFORMATION_MESSAGE);
 				}
 				
 				

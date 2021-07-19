@@ -55,6 +55,7 @@ public class CadastrarCliente extends JFrame {
 	 */
 	public static void main(String[] args) {
 		ControllerCliente controle = new ControllerCliente();
+		controle.iniciarClientes();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -75,14 +76,17 @@ public class CadastrarCliente extends JFrame {
 			@Override
 			public void windowClosed(WindowEvent e) {
 				controle.atualizarClientesController();
+				Prod.atualizarProdutosController();
 			}
 			@Override
 			public void windowActivated(WindowEvent e) {
 				controle.iniciarClientes();
+				Prod.iniciarProdutos();
 				
 			}
 		});
 		
+	
 		
 		setResizable(false);
 		setFont(new Font("Century", Font.PLAIN, 12));
@@ -152,15 +156,20 @@ public class CadastrarCliente extends JFrame {
 							String sexo = null;
 							if(rbF.isSelected()) {
 								sexo = "Feminino";
-							}if(rbM.isSelected()) {
+							}else{
 								sexo = "Masculino";
 							}
+								
 							
 							Cliente cliente = new Cliente(nome, cpf, data, sexo);
 							
 							if(controle.adicionarClienteController(cliente)) {
 								
 								JOptionPane.showMessageDialog(null, "CADASTRADO COM SECESSO", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
+								controle.atualizarClientesController();
+								
+								
+							
 							}
 							
 						

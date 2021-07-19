@@ -20,6 +20,7 @@ import models.Produto;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Set;
+import java.awt.event.WindowFocusListener;
 
 public class ListarClientesEx extends JFrame {
 	
@@ -52,21 +53,8 @@ public class ListarClientesEx extends JFrame {
 	 * Create the frame.
 	 */
 	public ListarClientesEx() {
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowActivated(WindowEvent e) {
-				Prod.iniciarProdutos();
-				c.iniciarClientes();
-				clientes = c.listarClienteExcluidosController();
-				
-			}
-			@Override
-			public void windowClosed(WindowEvent e) {
-				Prod.atualizarProdutosController();
-				c.atualizarClientesController();
-				
-			}
-		});
+		
+		
 		
 		c.iniciarClientes();
 		clientes = c.listarClienteExcluidosController();
@@ -104,7 +92,38 @@ public class ListarClientesEx extends JFrame {
 		
 		
 		
-		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				Prod.iniciarProdutos();
+				c.iniciarClientes();
+				
+			}
+			@Override
+			public void windowClosed(WindowEvent e) {
+				Prod.atualizarProdutosController();
+				c.atualizarClientesController();
+				
+			}
+		});
+		addWindowFocusListener(new WindowFocusListener() {
+			public void windowGainedFocus(WindowEvent e) {
+				Prod.iniciarProdutos();
+				c.iniciarClientes();
+				clientes = c.listarClienteExcluidosController();
+				
+				
+				while(auxCliente.getRowCount()>0){
+					auxCliente.removeRow(0);
+				}
+				for (Cliente cliente : clientes) {
+					auxCliente.addRow(new String [] {cliente.getNome(), cliente.getDataNasci(), cliente.getCpf()});
+				}
+				tabela.revalidate();
+			}
+			public void windowLostFocus(WindowEvent e) {
+			}
+		});
 		
 		
 		
